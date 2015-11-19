@@ -1,0 +1,124 @@
+﻿@using PerculusReport.Models
+@model MyModel
+@{
+    ViewBag.Title = "RoomParticipantsLive";
+}
+@Html.Partial("RoomSummary", Model)
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li><a href="@Url.Action("RoomParticipants", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (1)</a></li>
+        <li class="active"><a href="@Url.Action("RoomParticipantsLive", new { id = Model.rm.ROOMID })">Katılım Raporu (9) (Detaylı)</a></li>
+        <li><a href="@Url.Action("OturumaKatilanlar", "Perculus", new { id = Model.rm.ROOMID })">Oturuma Katılanlar (5) (Tümü)</a></li>
+        <li><a href="@Url.Action("Room", "Perculus", new { id = Model.rm.ROOMID })">Oturum Genel Bilgi</a></li>
+    </ul>
+
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane active" id="room1">
+            <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                <tr>
+                    <th>Katılımcı</th>
+                    <th>E-Posta</th>
+                    <th>İlk Giriş Tarihi</th>
+                    <th>Son Çıkış Tarihi</th>
+                    <th>İlk Tekrar Oynatma Tarihi</th>
+                    <th>Son Tekrar oynatma Tarihi</th>
+                    <th>Katılım Süresi</th>
+                    <th>Aktif Katılım Süresi</th>
+                    <th>Pasif katılım Süresi</th>
+                    <th>Tekrar İzleme Süresi</th>
+                    <th>Tekrar İzleme Sayısı</th>
+                    <th>Kamera Süresi</th>
+                    <th>Mikrofon Süresi</th>
+                    <th>Doküman Sayısı</th>
+                    <th>Sohbet Mesajı Sayısı</th>
+                    <th>Ekran Paylaşım Sayısı</th>
+                    <th>Anket Sayısı</th>
+                    <th>Kullanıcı Tipi</th>
+                </tr>
+                @{
+                    var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
+                }
+                @foreach (var p in ((List<PERCULUSSA_USP_REPORTS_ROOMUSERSTATS_Result>)ViewBag.LiveParticipants))
+                {
+                    <tr>
+
+                        <td>
+                            @p.report_user_name
+                        </td>
+                        <td>
+                            @p.report_email
+                        </td>
+                        <td>
+                            @(p.report_first_attendance_date.HasValue ? p.report_first_attendance_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @(p.report_last_exit_date.HasValue ? p.report_last_exit_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @(p.report_first_replay_date.HasValue ? p.report_first_replay_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @p.report_user_duration
+                        </td>
+                        <td>
+                            @p.report_user_duration_active
+                        </td>
+                        <td>
+                            @p.report_user_duration_passive
+                        </td>
+                        <td>
+                            @p.report_user_duration_replay
+                        </td>
+                        <td>
+                            @p.report_user_replay_count
+                        </td>
+                        <td>
+                            @p.report_user_cam_duration
+                        </td>
+                        <td>
+                            @p.report_user_mic_duration
+                        </td>
+                        <td>
+                            @p.report_document_count
+                        </td>
+                        <td>
+                            @p.report_chatmessage_count
+                        </td>
+                        <td>
+                            @p.report_scrnshare_user_count
+                        </td>
+                        <td>
+                            @p.report_poll_count
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="tab-pane" id="room2">
+            <h1>Room2</h1>
+            <p>Room2 Content</p>
+        </div>
+        <div class="tab-pane" id="room3">
+            <h1>Room3</h1>
+            <p>Room3 Content</p>
+        </div>
+        <div class="tab-pane" id="room4">
+            <h1>Room4</h1>
+            <p>Room4 Content</p>
+        </div>
+        <div class="tab-pane" id="room5">
+            <h1>Room5</h1>
+            <p>Room5 Content</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#tabs').tab();
+        });
+    </script>
+}
+

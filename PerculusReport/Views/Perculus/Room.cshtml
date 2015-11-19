@@ -1,0 +1,155 @@
+﻿@using PerculusReport.Models
+@using PerculusReport.Models.Perculus
+@model MyModel
+@{
+    ViewBag.Title = "Room";
+}
+@Html.Partial("RoomSummary", Model)
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li><a href="@Url.Action("RoomParticipants", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (1)</a></li>
+        <li><a href="@Url.Action("RoomParticipantsLive", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (9) (Detaylı)</a></li>
+        <li><a href="@Url.Action("OturumaKatilanlar", "Perculus", new { id = Model.rm.ROOMID })">Oturuma Katılanlar (5) (Tümü)</a></li>
+        <li class="active"><a href="@Url.Action("Room", "Perculus", new { id = Model.rm.ROOMID })">Oturum Genel Bilgi</a></li>
+    </ul>
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane" id="room1">
+
+        </div>
+        <div class="tab-pane" id="room2">
+            <h1>Room2</h1>
+            <p>Room2 Content</p>
+        </div>
+        <div class="tab-pane active" id="room3">
+            <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                <tr>
+                    <th>Kulanıcı</th>
+                    <th>Süre</th>
+                    <th>Giriş</th>
+                    <th>İlk-Son Giriş Tarihleri</th>
+                </tr>
+                @{
+                    var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
+                }
+                @foreach (var u in ((List<UserLog>)ViewBag.Users).OrderBy(t => t.USERTYPE))
+                {
+                    <tr>
+                        <td>
+
+                            @if (u.USERTYPE == "e")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 blue"></i>
+                            }
+                            else if (u.USERTYPE == "a")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 red"></i>
+                            }
+
+                            @u.NAME @u.SURNAME
+                        </td>
+                        <td>
+                            <div class="badge badge-success">@(u.LATTENDDURATION == 0 ? "" : u.LATTENDDURATION.ToString())</div>
+                            <div class="badge badge-danger">@(u.TATTENDDURATION == 0 ? "" : u.TATTENDDURATION.ToString())</div>
+                        </td>
+                        <td>
+                            <div class="label label-success">@(u.LATTENDCOUNT == 0 ? "" : u.LATTENDCOUNT.ToString())</div>
+                            <div class="label label-danger">@(u.TATTENDCOUNT == 0 ? "" : u.TATTENDCOUNT.ToString())</div>
+                        </td>
+                        <td>
+                            <div class="widget-box transparent collapsed">
+                                <div class="widget-header widget-header-small">
+                                    <h5 class="widget-title">
+                                        @if (u.FIRSTATTEND.HasValue && u.LASTATTEND.HasValue)
+                                        {
+                                            if (u.FIRSTATTEND.Value.Date == u.LASTATTEND.Value.Date)
+                                            {
+                                                <span>
+                                                    @(u.FIRSTATTEND.HasValue ? (u.FIRSTATTEND.Value.ToString("dd MMMM yyy HH:mm")) : "") -
+                                                    @(u.LASTATTEND.HasValue ? (u.LASTATTEND.Value.ToString("HH:mm")) : "")
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span>
+                                                    @(u.FIRSTATTEND.HasValue ? (u.FIRSTATTEND.Value.ToString("dd MMMM yyy HH:mm")) : "") -
+                                                    @(u.LASTATTEND.HasValue ? (u.LASTATTEND.Value.ToString("dd MMMM yyy HH:mm")) : "")
+                                                </span>
+
+                                            }
+                                        }
+                                    </h5>
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                                            <tr>
+                                                <td>
+                                                    Giriş
+                                                </td>
+                                                <td>
+                                                    Çıkış
+                                                </td>
+                                                <td>
+                                                    Süre
+                                                </td>
+                                            </tr>
+
+                                            @foreach (var item in u.Logs)
+                                            {
+
+                                                var color = "red";
+                                                if (item.ENTERDATE.HasValue && item.ENTERDATE.Value <= ldate)
+                                                {
+                                                    color = "green";
+                                                }
+
+                                                <tr class="@color">
+                                                    <td>
+                                                        @(item.ENTERDATE.HasValue ? (item.ENTERDATE.Value.ToString("dd MMMM HH:mm")) : "")
+                                                    </td>
+                                                    <td>
+                                                        @(item.EXITDATE.HasValue ? (item.EXITDATE.Value.ToString("dd MMMM HH:mm")) : "")
+                                                    </td>
+                                                    <td>
+                                                        @if (item.ENTERDATE.HasValue && item.EXITDATE.HasValue)
+                                                        {
+                                                            <span>
+                                                                @((int)(item.EXITDATE.Value - item.ENTERDATE.Value).TotalMinutes) dk
+                                                            </span>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+                }
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#tabs').tab();
+    });
+    </script>
+}
+

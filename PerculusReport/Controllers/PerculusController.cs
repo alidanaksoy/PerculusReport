@@ -1,0 +1,100 @@
+﻿using PerculusReport.Models;
+using PerculusReport.Models.Perculus;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace PerculusReport.Controllers
+{
+    public class PerculusController : Controller
+    {
+        // GET: Perculus
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult RoomParticipants(int id)
+        {
+            PerculusDb db = new PerculusDb();
+            var room = db.Rooms.Find(id);
+
+            PerculusData data = new PerculusData();
+            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            ViewBag.Participants = data.PERCULUSSA_USP_REPORTS_PARTICIPATION(id, 1, "admin", "presenter", "user").ToList();
+
+            MyModel mm = new MyModel();
+            mm.rm = room;
+            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+
+            return View(mm);
+        }
+        public ActionResult RoomParticipantsLive(int? id) //reportid=9
+        {
+            PerculusDb db = new PerculusDb();
+            var room = db.Rooms.Find(id);
+
+            PerculusData data = new PerculusData();
+            ViewBag.LiveParticipants = data.PERCULUSSA_USP_REPORTS_ROOMUSERSTATS(id, 1, "admin", "presenter", "user").ToList();
+
+            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            MyModel mm = new MyModel();
+            mm.rm = room;
+            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+
+            return View(mm);
+        }
+        public ActionResult OturumaKatilanlar(int? id) //reportid=5
+        {
+            PerculusDb db = new PerculusDb();
+            var room = db.Rooms.Find(id);
+
+            PerculusData data = new PerculusData();
+            ViewBag.OturumaKatilanlar = data.PERCULUSSA_USP_REPORTS_USERLIST(id, 1, "admin", "presenter", "user").ToList();
+
+            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            MyModel mm = new MyModel();
+            mm.rm = room;
+            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+
+            return View(mm);
+        }
+        public ActionResult Room(int id)
+        {
+            PerculusDb db = new PerculusDb();
+            var room = db.Rooms.Find(id);
+            var ldate = room.BEGINDATE.Value.AddMinutes(room.DURATION.Value);
+            var users = from u in db.RoomUsers
+                        where u.ROOMID == id
+                        select new UserLog()
+                        {
+                            NAME = u.NAME,
+                            SURNAME = u.SURNAME,
+                            USERTYPE = u.USERTYPE,
+                            USERID = u.USERID,
+                            ATTENDCODE = u.ATTENDCODE,
+                            EMAILADDRESS = u.EMAILADDRESS,
+                            LATTENDCOUNT = db.Logs.Count(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID && t.ENTERDATE <= ldate),
+                            TATTENDCOUNT = db.Logs.Count(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID && t.ENTERDATE > ldate),
+                            LATTENDDURATION = db.Logs.Where(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID && t.EXITDATE.HasValue && t.ENTERDATE.HasValue && t.ENTERDATE <= ldate).Sum(a => SqlFunctions.DateDiff("minute", a.ENTERDATE.Value, a.EXITDATE.Value)),
+                            TATTENDDURATION = db.Logs.Where(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID && t.EXITDATE.HasValue && t.ENTERDATE.HasValue && t.ENTERDATE > ldate).Sum(a => SqlFunctions.DateDiff("minute", a.ENTERDATE.Value, a.EXITDATE.Value)),
+                            FIRSTATTEND = db.Logs.Where(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID).Min(a => a.ENTERDATE),
+                            LASTATTEND = db.Logs.Where(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID).Max(a => a.ENTERDATE),
+                            Logs = db.Logs.Where(t => t.USERID == u.USERID && t.ROOMID == u.ROOMID).ToList()
+                        };
+
+            ViewBag.Users = users.ToList();
+
+            PerculusData data = new PerculusData();
+            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            MyModel mm = new MyModel();
+            mm.rm = room;
+            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+
+
+            return View(mm);
+        }
+    }
+}

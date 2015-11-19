@@ -1,0 +1,75 @@
+﻿@using PerculusReport.Models
+@model MyModel
+<div class="widget-box transparent">
+    <div class="widget-header">
+        <h4>
+            <i class="ace-icon fa fa-users bigger-110" style="margin-right:10px;"></i>
+            <span>@Model.rm.SESSIONNAME</span>
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                <tr>
+                    <th> Başlangıç Tarihi</th>
+                    <td>
+                        <button type="button" class="btn btn-white btn-success">@(Model.rm.BEGINDATE.HasValue ? Model.rm.BEGINDATE.Value.ToString("dd MMMM yyy HH:mm") : "")</button>
+                    </td>
+                    <th>Varsayılan Süre</th>
+                    <td>
+                        <button type="button" class="btn btn-white btn-info">@Model.rm.DURATION</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Oturum Kimliği</th>
+                    <td>@Model.stat.report_room_id</td>
+                    <th>Kamera Kullanım Sayısı</th>
+                    <td>@(Model.stat.report_cam_count > 0 ? Model.stat.report_cam_count.ToString() : "")</td>
+                </tr>
+                <tr>
+                    <th>Oturum Adı</th>
+                    <td>@Model.stat.report_session_name</td>
+                    <th>Katılımcı Kamera Kullanım Sayısı</th>
+                    <td>@(Model.stat.report_cam_user_count > 0 ? Model.stat.report_cam_user_count.ToString() : "")</td>
+                </tr>
+                <tr>
+                    <th>Aktif Katılım Süresi</th>
+                    <td>@Model.stat.report_duration_active</td>
+                    <th>Mikrofon Kullanım Sayısı</th>
+                    <td>@(Model.stat.repot_mic_count > 0 ? Model.stat.repot_mic_count.ToString() : "")</td>
+                </tr>
+                <tr>
+                    <th>Katılımcı Sayısı</th>
+                    <td>
+                        @if (Model.stat.report_user_count > 0)
+                        {
+                            <div class="label label-success">@Model.stat.report_user_count</div>
+                        }
+                    </td>
+                    <th>Katılımcı Mikrofon Kullanım Sayısı</th>
+                    <td>@(Model.stat.report_mic_user_count > 0 ? Model.stat.report_mic_user_count.ToString() : "")</td>
+
+                </tr>
+                <tr>
+                    <th>Atılan Katılımcı Sayısı</th>
+                    <td>@(Model.stat.report_banned_count > 0 ? Model.stat.report_banned_count.ToString() : "")</td>
+                    <th>Ekran Paylaşımı Sayısı</th>
+                    <td>@(Model.stat.report_scrnshare_count > 0 ? Model.stat.report_scrnshare_count.ToString() : "")</td>
+                </tr>
+                <tr>
+                    <th>Ekran Paylaşım Sayısı</th>
+                    <td>@(Model.stat.report_scrnshare_user_count > 0 ? Model.stat.report_scrnshare_user_count.ToString() : "")</td>
+                    <th>Doküman Sayısı</th>
+                    <td>@(Model.stat.report_document_count > 0 ? Model.stat.report_document_count.ToString() : "")</td>
+                </tr>
+                <tr>
+                    <th>Anket Sayısı</th>
+                    <td>@(Model.stat.report_poll_count > 0 ? Model.stat.report_poll_count.ToString() : "")</td>
+                    <th></th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

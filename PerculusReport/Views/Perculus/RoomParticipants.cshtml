@@ -1,0 +1,91 @@
+﻿@using PerculusReport.Models
+@model MyModel
+
+@Html.Partial("RoomSummary", Model)
+<div id="content">
+    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+        <li class="active"><a href="@Url.Action("RoomParticipants", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (1)</a></li>
+        <li><a href="@Url.Action("RoomParticipantsLive", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (9) (Detaylı)</a></li>
+        <li><a href="@Url.Action("OturumaKatilanlar", "Perculus", new { id = Model.rm.ROOMID })">Oturuma Katılanlar (5) (Tümü)</a></li>
+        <li><a href="@Url.Action("Room", "Perculus", new { id = Model.rm.ROOMID })">Oturum Genel Bilgi</a></li>
+    </ul>
+
+    <div id="my-tab-content" class="tab-content">
+        <div class="tab-pane" id="room1">
+
+        </div>
+        <div class="tab-pane active" id="room2">
+            <table class="table table-striped table-bordered table-hover" style="width: 100%;">
+                <tr>
+
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>E-Posta</th>
+                    <th>Katılım Süresi</th>
+                    <th>Tekrar İzleme Süresi</th>
+                    <th>İlk Giriş Tarihi</th>
+                    <th>Son Çıkış Tarihi</th>
+                    <th>İlk Tekrar Oynatma Tarihi</th>
+                    <th>Son Tekrar Oynatma Tarihi</th>
+                </tr>
+                @{
+                    var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
+                }
+                @foreach (var p in ((List<PERCULUSSA_USP_REPORTS_PARTICIPATION_Result>)ViewBag.Participants).OrderBy(t => t.report_user_type))
+                {
+                    <tr>
+                        <td>
+                            @if (p.report_user_type == "presenter")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 blue"></i>
+                            }
+                            else if (p.report_user_type == "admin")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 red"></i>
+                            }
+                            @p.report_user_name
+                        </td>
+                        <td>
+                            @p.report_surname
+                        </td>
+                        <td>
+                            @p.report_email
+                        </td>
+                        <td>
+                            @p.report_user_duration
+                        </td>
+                        <td>
+                            @p.report_user_duration_replay
+                        </td>
+                        <td>
+                            @(p.report_first_attendance_date.HasValue ? p.report_first_attendance_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @(p.report_last_exit_date.HasValue ? p.report_last_exit_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @(p.report_first_replay_date.HasValue ? p.report_first_replay_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                        <td>
+                            @(p.report_last_replay_date.HasValue ? p.report_last_replay_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="tab-pane" id="room3">
+            <h1>Room3</h1>
+            <p>Room3 Content</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#tabs').tab();
+        });
+    </script>
+}
+
