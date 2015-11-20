@@ -38,57 +38,71 @@
                 @{
                     var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
                 }
-                @foreach (var p in ((List<PERCULUSSA_USP_REPORTS_ROOMUSERSTATS_Result>)ViewBag.LiveParticipants))
+                @foreach (var p in ((List<Reports_RoomUserStats_Result>)ViewBag.LiveParticipants))
                 {
                     <tr>
 
                         <td>
-                            @p.report_user_name
+                            @if (p.UserType == "Eğitmen")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 blue"></i>
+                            }
+                            else if (p.UserType == "Yönetici")
+                            {
+                                @:<i class="ace-icon fa fa-user bigger-110 red"></i>
+                            }
+                            @p.Username
                         </td>
                         <td>
-                            @p.report_email
+                            @p.Email
                         </td>
                         <td>
-                            @(p.report_first_attendance_date.HasValue ? p.report_first_attendance_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                            @(p.FirstAttemtLive.HasValue ? p.FirstAttemtLive.Value.ToString("dd MMMM yyy HH:mm") : "")
                         </td>
                         <td>
-                            @(p.report_last_exit_date.HasValue ? p.report_last_exit_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                            @(p.LastAttemptLive.HasValue ? p.LastAttemptLive.Value.ToString("dd MMMM yyy HH:mm") : "")
                         </td>
                         <td>
-                            @(p.report_first_replay_date.HasValue ? p.report_first_replay_date.Value.ToString("dd MMMM yyy HH:mm") : "")
+                            @(p.FirstReplayDate.HasValue ? p.FirstReplayDate.Value.ToString("dd MMMM yyy HH:mm") : "")
                         </td>
                         <td>
-                            @p.report_user_duration
+                            @(p.LastReplayDate.HasValue ? p.LastReplayDate.Value.ToString("dd MMMM yyy HH:mm") : "")
                         </td>
                         <td>
-                            @p.report_user_duration_active
+                            @p.UserDuration
                         </td>
                         <td>
-                            @p.report_user_duration_passive
+                            @p.UserDurationActive
                         </td>
                         <td>
-                            @p.report_user_duration_replay
+                            @p.UserDurationPassive
                         </td>
                         <td>
-                            @p.report_user_replay_count
+                            @p.UserDurationReplay
                         </td>
                         <td>
-                            @p.report_user_cam_duration
+                            @p.UserReplayCount
                         </td>
                         <td>
-                            @p.report_user_mic_duration
+                            @p.UserCamDuration
                         </td>
                         <td>
-                            @p.report_document_count
+                            @p.UserMicDuration
                         </td>
                         <td>
-                            @p.report_chatmessage_count
+                            @p.DocumentCount
                         </td>
                         <td>
-                            @p.report_scrnshare_user_count
+                            @p.ChatMessageCount
                         </td>
                         <td>
-                            @p.report_poll_count
+                            @p.ScrnshareUserCount
+                        </td>
+                        <td>
+                            @p.PollCount
+                        </td>
+                        <td>
+                            @p.UserType
                         </td>
                     </tr>
                 }

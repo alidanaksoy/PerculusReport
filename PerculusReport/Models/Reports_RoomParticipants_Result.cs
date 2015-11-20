@@ -10,17 +10,16 @@
 namespace PerculusReport.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class PERCULUSSA_ST_MODULESETTINGS
+    public partial class Reports_RoomParticipants_Result
     {
-        public int SETTINGID { get; set; }
-        public string MODULENAME { get; set; }
-        public string SETTINGKEY { get; set; }
-        public string SETTINGVALUE { get; set; }
-        public int ROOMID { get; set; }
-        public System.DateTime DATEMODIFIED { get; set; }
-    
-        public virtual PERCULUSSA_ST_ROOMS PERCULUSSA_ST_ROOMS { get; set; }
+        public Nullable<int> RoomId { get; set; }
+        public string AttendCode { get; set; }
+        public string UserName { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string UserDuration { get; set; }
+        public string UserDurationReplay { get; set; }
+        public string UserType { get; set; }
     }
 }

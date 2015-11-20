@@ -31,26 +31,35 @@
                 @{
                     var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
                 }
-                @foreach (var p in ((List<PERCULUSSA_USP_REPORTS_USERLIST_Result>)ViewBag.OturumaKatilanlar).OrderBy(t => t.report_user_type))
+                @*@foreach (var p in ((List<Reports_UserList_Result>)ViewBag.OturumaKatilanlar).OrderBy(t => t.UserType))*@
+                @foreach (var p in ((List<Reports_UserList_Result>)ViewBag.OturumaKatilanlar))
                 {
                     <tr>
                         <td>
-                            @p.report_user_name
+                            @if (p.UserType == "Eğitmen")
+                            {
+                                @:<i class="fa fa-user bigger-110 blue"></i>
+                            }
+                            else if (p.UserType == "Yönetici")
+                            {
+                                @:<i class="fa fa-user bigger-110 red"></i>
+                            }
+                            @p.UserName
                         </td>
                         <td>
-                            @p.report_surname
+                            @p.Surname
                         </td>
                         <td>
-                            @p.report_email
+                            @p.Email
                         </td>
                         <td>
-                            @p.report_user_type
+                            @p.UserType
                         </td>
                         <td>
-                            @p.report_attend_code
+                            @p.AttendCode
                         </td>
                         <td>
-                            @p.report_is_banned
+                            @p.IsBanned
                         </td>
                     </tr>
                 }

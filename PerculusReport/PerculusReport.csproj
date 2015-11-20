@@ -135,120 +135,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Models.cs" />
-    <Compile Include="Models\PERCULUSSA_HT_LOCALIZATION_COMPANY.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\PerculusData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerculusData.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PERCULUSSA_HT_LOGINLOG.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\PerculusData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PERCULUSSA_HT_MENUDATA_COMPANY.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_HT_PASSWORDHISTORY.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_HT_QUEUELOG.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_HT_USERRIGHTS_COMPANY.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_COMPANY_HOSTHEADERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_ENROLLREQUESTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_GROUPUSERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_LAYOUTMODULES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_ROOMGROUPS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_ROOMLAYOUTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_MT_ROOMUSERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_COMPANIES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_FILES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_GROUPS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_LAYOUTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_LOGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_LOGS_OLD.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_MESSAGEQUEUE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_MODULESETTINGS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_POLLOPTIONS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_POLLRESPONSES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_REPORTS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_ROOMPOLLS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_ROOMS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_ROOMSTATS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_ROOMUSERSTATS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_ST_USERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_USP_REPORTS_PARTICIPATION_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_USP_REPORTS_ROOMSTATS_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_USP_REPORTS_ROOMUSERSTATS_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PERCULUSSA_USP_REPORTS_USERLIST_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\PerculusData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PerculusData.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Perculus\ActiveSession.cs" />
     <Compile Include="Models\Perculus\Log.cs" />
@@ -259,17 +160,17 @@
     <Compile Include="Models\Perculus\Room.cs" />
     <Compile Include="Models\Perculus\RoomUser.cs" />
     <Compile Include="Models\Perculus\UserLog.cs" />
-    <Compile Include="Models\PERCULUS_EXT_ACTIVESESSIONS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Reports_RoomParticipants_Result.cs">
+      <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PERCULUS_PERMISSIONS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Reports_RoomStats_Result.cs">
+      <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PERCULUS_PRINTERSERVERS.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Reports_RoomUserStats_Result.cs">
+      <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PERCULUS_PRINTERSERVERS_LOG.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Reports_UserList_Result.cs">
+      <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -280,24 +181,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\PerculusData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>PerculusData.edmx</DependentUpon>
+      <LastGenOutput>PerculusData.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\PerculusData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>PerculusData.edmx</DependentUpon>
+      <LastGenOutput>PerculusData.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model1.edmx">
+    <EntityDeploy Include="Models\PerculusData.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>PerculusData.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Models\PerculusData.edmx.diagram">
+      <DependentUpon>PerculusData.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -333,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\font-awesome-4.4.0\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

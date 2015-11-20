@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Perculus2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="Reports_RoomParticipants" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoomId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Reports_RoomStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoomId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Reports_RoomUserStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ROOMID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Reports_UserList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ROOMID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Perculus2ModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Perculus2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PerculusData" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="Reports_RoomParticipants" ReturnType="Collection(Perculus2Model.Reports_RoomParticipants_Result)">
+          <Parameter Name="RoomId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Reports_RoomStats" ReturnType="Collection(Perculus2Model.Reports_RoomStats_Result)">
+          <Parameter Name="RoomId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Reports_RoomUserStats" ReturnType="Collection(Perculus2Model.Reports_RoomUserStats_Result)">
+          <Parameter Name="ROOMID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Reports_UserList" ReturnType="Collection(Perculus2Model.Reports_UserList_Result)">
+          <Parameter Name="ROOMID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Reports_RoomParticipants_Result">
+          <Property Type="Int32" Name="RoomId" Nullable="true" />
+          <Property Type="String" Name="AttendCode" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="UserDuration" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserDurationReplay" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UserType" Nullable="true" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="Reports_RoomStats_Result">
+          <Property Type="Int32" Name="RoomId" Nullable="false" />
+          <Property Type="String" Name="SessionName" Nullable="true" MaxLength="255" />
+          <Property Type="Decimal" Name="DurationActive" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="UserCount" Nullable="false" />
+          <Property Type="Int32" Name="BannedCount" Nullable="false" />
+          <Property Type="Int32" Name="CamCount" Nullable="false" />
+          <Property Type="Int32" Name="CamUserCount" Nullable="false" />
+          <Property Type="Int32" Name="MicCount" Nullable="false" />
+          <Property Type="Int32" Name="MicUserCount" Nullable="false" />
+          <Property Type="Int32" Name="ScrnshareCount" Nullable="false" />
+          <Property Type="Int32" Name="ScrnshareUserCount" Nullable="false" />
+          <Property Type="Int32" Name="DocumentCount" Nullable="false" />
+          <Property Type="Int32" Name="PollCount" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Reports_RoomUserStats_Result">
+          <Property Type="Int32" Name="RoomId" Nullable="false" />
+          <Property Type="String" Name="SessionName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FirstAttemtLive" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastAttemptLive" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FirstReplayDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastReplayDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="UserDuration" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="UserDurationActive" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="UserDurationPassive" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="UserDurationReplay" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="UserReplayCount" Nullable="false" />
+          <Property Type="Decimal" Name="UserCamDuration" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Decimal" Name="UserMicDuration" Nullable="true" Precision="8" Scale="2" />
+          <Property Type="Int32" Name="DocumentCount" Nullable="false" />
+          <Property Type="Int32" Name="ChatMessageCount" Nullable="false" />
+          <Property Type="Int32" Name="ScrnshareUserCount" Nullable="false" />
+          <Property Type="Int32" Name="PollCount" Nullable="false" />
+          <Property Type="String" Name="UserType" Nullable="true" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="Reports_UserList_Result">
+          <Property Type="String" Name="UserName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Surname" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="UserType" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="AttendCode" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IsBanned" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Perculus2ModelStoreContainer" CdmEntityContainer="PerculusData" >
+          <FunctionImportMapping FunctionImportName="Reports_RoomParticipants" FunctionName="Perculus2Model.Store.Reports_RoomParticipants">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Perculus2Model.Reports_RoomParticipants_Result">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="AttendCode" ColumnName="AttendCode" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserDuration" ColumnName="UserDuration" />
+                <ScalarProperty Name="UserDurationReplay" ColumnName="UserDurationReplay" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Reports_RoomStats" FunctionName="Perculus2Model.Store.Reports_RoomStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Perculus2Model.Reports_RoomStats_Result">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+                <ScalarProperty Name="DurationActive" ColumnName="DurationActive" />
+                <ScalarProperty Name="UserCount" ColumnName="UserCount" />
+                <ScalarProperty Name="BannedCount" ColumnName="BannedCount" />
+                <ScalarProperty Name="CamCount" ColumnName="CamCount" />
+                <ScalarProperty Name="CamUserCount" ColumnName="CamUserCount" />
+                <ScalarProperty Name="MicCount" ColumnName="MicCount" />
+                <ScalarProperty Name="MicUserCount" ColumnName="MicUserCount" />
+                <ScalarProperty Name="ScrnshareCount" ColumnName="ScrnshareCount" />
+                <ScalarProperty Name="ScrnshareUserCount" ColumnName="ScrnshareUserCount" />
+                <ScalarProperty Name="DocumentCount" ColumnName="DocumentCount" />
+                <ScalarProperty Name="PollCount" ColumnName="PollCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Reports_RoomUserStats" FunctionName="Perculus2Model.Store.Reports_RoomUserStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Perculus2Model.Reports_RoomUserStats_Result">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="SessionName" ColumnName="SessionName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FirstAttemtLive" ColumnName="FirstAttemtLive" />
+                <ScalarProperty Name="LastAttemptLive" ColumnName="LastAttemptLive" />
+                <ScalarProperty Name="FirstReplayDate" ColumnName="FirstReplayDate" />
+                <ScalarProperty Name="LastReplayDate" ColumnName="LastReplayDate" />
+                <ScalarProperty Name="UserDuration" ColumnName="UserDuration" />
+                <ScalarProperty Name="UserDurationActive" ColumnName="UserDurationActive" />
+                <ScalarProperty Name="UserDurationPassive" ColumnName="UserDurationPassive" />
+                <ScalarProperty Name="UserDurationReplay" ColumnName="UserDurationReplay" />
+                <ScalarProperty Name="UserReplayCount" ColumnName="UserReplayCount" />
+                <ScalarProperty Name="UserCamDuration" ColumnName="UserCamDuration" />
+                <ScalarProperty Name="UserMicDuration" ColumnName="UserMicDuration" />
+                <ScalarProperty Name="DocumentCount" ColumnName="DocumentCount" />
+                <ScalarProperty Name="ChatMessageCount" ColumnName="ChatMessageCount" />
+                <ScalarProperty Name="ScrnshareUserCount" ColumnName="ScrnshareUserCount" />
+                <ScalarProperty Name="PollCount" ColumnName="PollCount" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Reports_UserList" FunctionName="Perculus2Model.Store.Reports_UserList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Perculus2Model.Reports_UserList_Result">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="AttendCode" ColumnName="AttendCode" />
+                <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
