@@ -23,41 +23,41 @@
                     <th>E-Posta</th>
                     <th>Katılım Süresi</th>
                     <th>Tekrar İzleme Süresi</th>
-                    <th>İlk Giriş Tarihi</th>
-                    <th>Son Çıkış Tarihi</th>
-                    <th>İlk Tekrar Oynatma Tarihi</th>
-                    <th>Son Tekrar Oynatma Tarihi</th>
+                    <th>Kullanıcı Tipi</th>
                 </tr>
                 @{
                     var ldate = Model.rm.BEGINDATE.Value.AddMinutes(Model.rm.DURATION.Value);
                 }
-                @foreach (var p in ((List<PERCULUSSA_USP_REPORTS_PARTICIPATION_Result>)ViewBag.Participants).OrderBy(t => t.report_user_type))
+                @foreach (var p in ((List<Reports_RoomParticipants_Result>)ViewBag.Participants))
                 {
                     <tr>
                         <td>
-                            @if (p.report_user_type == "presenter")
+                            @if (p.UserType == "Eğitmen")
                             {
                                 @:<i class="ace-icon fa fa-user bigger-110 blue"></i>
                             }
-                            else if (p.report_user_type == "admin")
+                            else if (p.UserType == "Yönetici")
                             {
                                 @:<i class="ace-icon fa fa-user bigger-110 red"></i>
                             }
-                            @p.report_user_name
+                            @p.UserName
                         </td>
                         <td>
-                            @p.report_surname
+                            @p.Surname
                         </td>
                         <td>
-                            @p.report_email
+                            @p.Email
                         </td>
                         <td>
-                            @p.report_user_duration
+                            @p.UserDuration
                         </td>
                         <td>
-                            @p.report_user_duration_replay
+                            @p.UserDurationReplay
                         </td>
                         <td>
+                            @p.UserType
+                        </td>
+                        @*<td>
                             @(p.report_first_attendance_date.HasValue ? p.report_first_attendance_date.Value.ToString("dd MMMM yyy HH:mm") : "")
                         </td>
                         <td>
@@ -68,7 +68,7 @@
                         </td>
                         <td>
                             @(p.report_last_replay_date.HasValue ? p.report_last_replay_date.Value.ToString("dd MMMM yyy HH:mm") : "")
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </table>

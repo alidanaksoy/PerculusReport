@@ -23,49 +23,49 @@
 
                 <tr>
                     <th>Oturum Kimliği</th>
-                    <td>@Model.stat.report_room_id</td>
+                    <td>@Model.stat.RoomId</td>
                     <th>Kamera Kullanım Sayısı</th>
-                    <td>@(Model.stat.report_cam_count > 0 ? Model.stat.report_cam_count.ToString() : "")</td>
+                    <td>@(Model.stat.CamCount > 0 ? Model.stat.CamCount.ToString() : "")</td>
                 </tr>
                 <tr>
                     <th>Oturum Adı</th>
-                    <td>@Model.stat.report_session_name</td>
+                    <td>@Model.stat.SessionName</td>
                     <th>Katılımcı Kamera Kullanım Sayısı</th>
-                    <td>@(Model.stat.report_cam_user_count > 0 ? Model.stat.report_cam_user_count.ToString() : "")</td>
+                    <td>@(Model.stat.CamUserCount > 0 ? Model.stat.CamUserCount.ToString() : "")</td>
                 </tr>
                 <tr>
                     <th>Aktif Katılım Süresi</th>
-                    <td>@Model.stat.report_duration_active</td>
+                    <td>@Model.stat.DurationActive</td>
                     <th>Mikrofon Kullanım Sayısı</th>
-                    <td>@(Model.stat.repot_mic_count > 0 ? Model.stat.repot_mic_count.ToString() : "")</td>
+                    <td>@(Model.stat.MicCount > 0 ? Model.stat.MicCount.ToString() : "")</td>
                 </tr>
                 <tr>
                     <th>Katılımcı Sayısı</th>
                     <td>
-                        @if (Model.stat.report_user_count > 0)
+                        @if (Model.stat.UserCount > 0)
                         {
-                            <div class="label label-success">@Model.stat.report_user_count</div>
+                            <div class="label label-success">@Model.stat.UserCount</div>
                         }
                     </td>
                     <th>Katılımcı Mikrofon Kullanım Sayısı</th>
-                    <td>@(Model.stat.report_mic_user_count > 0 ? Model.stat.report_mic_user_count.ToString() : "")</td>
+                    <td>@(Model.stat.MicUserCount > 0 ? Model.stat.MicUserCount.ToString() : "")</td>
 
                 </tr>
                 <tr>
                     <th>Atılan Katılımcı Sayısı</th>
-                    <td>@(Model.stat.report_banned_count > 0 ? Model.stat.report_banned_count.ToString() : "")</td>
+                    <td>@(Model.stat.BannedCount > 0 ? Model.stat.BannedCount.ToString() : "")</td>
                     <th>Ekran Paylaşımı Sayısı</th>
-                    <td>@(Model.stat.report_scrnshare_count > 0 ? Model.stat.report_scrnshare_count.ToString() : "")</td>
+                    <td>@(Model.stat.ScrnshareCount > 0 ? Model.stat.ScrnshareCount.ToString() : "")</td>
                 </tr>
                 <tr>
                     <th>Ekran Paylaşım Sayısı</th>
-                    <td>@(Model.stat.report_scrnshare_user_count > 0 ? Model.stat.report_scrnshare_user_count.ToString() : "")</td>
+                    <td>@(Model.stat.ScrnshareUserCount > 0 ? Model.stat.ScrnshareUserCount.ToString() : "")</td>
                     <th>Doküman Sayısı</th>
-                    <td>@(Model.stat.report_document_count > 0 ? Model.stat.report_document_count.ToString() : "")</td>
+                    <td>@(Model.stat.DocumentCount > 0 ? Model.stat.DocumentCount.ToString() : "")</td>
                 </tr>
                 <tr>
                     <th>Anket Sayısı</th>
-                    <td>@(Model.stat.report_poll_count > 0 ? Model.stat.report_poll_count.ToString() : "")</td>
+                    <td>@(Model.stat.PollCount > 0 ? Model.stat.PollCount.ToString() : "")</td>
                     <th></th>
                     <td></td>
                 </tr>

@@ -10,18 +10,15 @@
 namespace PerculusReport.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class PERCULUSSA_MT_LAYOUTMODULES
+    public partial class Reports_UserList_Result
     {
-        public int LAYOUTID { get; set; }
-        public string MODULENAME { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int WIDTH { get; set; }
-        public int HEIGHT { get; set; }
-        public System.DateTime DATEADDED { get; set; }
-    
-        public virtual PERCULUSSA_ST_LAYOUTS PERCULUSSA_ST_LAYOUTS { get; set; }
+        public string UserName { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string UserType { get; set; }
+        public string AttendCode { get; set; }
+        public Nullable<int> IsBanned { get; set; }
+        public string UType { get; set; }
     }
 }

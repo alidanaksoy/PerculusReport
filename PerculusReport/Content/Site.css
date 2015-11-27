@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.blue {
+    color:#0094ff;
+}
+.red {
+    color:#ff0000;
+}

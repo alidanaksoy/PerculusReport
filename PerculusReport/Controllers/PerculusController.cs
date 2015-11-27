@@ -18,16 +18,16 @@ namespace PerculusReport.Controllers
         }
         public ActionResult RoomParticipants(int id)
         {
-            PerculusDb db = new PerculusDb();
+            Models.Perculus.PerculusDb db = new Models.Perculus.PerculusDb();
             var room = db.Rooms.Find(id);
 
             PerculusData data = new PerculusData();
-            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
-            ViewBag.Participants = data.PERCULUSSA_USP_REPORTS_PARTICIPATION(id, 1, "admin", "presenter", "user").ToList();
+            var nesne1 = data.Reports_RoomStats(id).FirstOrDefault();
+            ViewBag.Participants = data.Reports_RoomParticipants(id).ToList();
 
             MyModel mm = new MyModel();
             mm.rm = room;
-            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+            mm.stat = nesne1 ?? new Reports_RoomStats_Result();
 
             return View(mm);
         }
@@ -37,12 +37,12 @@ namespace PerculusReport.Controllers
             var room = db.Rooms.Find(id);
 
             PerculusData data = new PerculusData();
-            ViewBag.LiveParticipants = data.PERCULUSSA_USP_REPORTS_ROOMUSERSTATS(id, 1, "admin", "presenter", "user").ToList();
+            ViewBag.LiveParticipants = data.Reports_RoomUserStats(id).ToList();
 
-            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            var nesne1 = data.Reports_RoomStats(id).FirstOrDefault();
             MyModel mm = new MyModel();
             mm.rm = room;
-            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+            mm.stat = nesne1 ?? new Reports_RoomStats_Result();
 
             return View(mm);
         }
@@ -52,12 +52,12 @@ namespace PerculusReport.Controllers
             var room = db.Rooms.Find(id);
 
             PerculusData data = new PerculusData();
-            ViewBag.OturumaKatilanlar = data.PERCULUSSA_USP_REPORTS_USERLIST(id, 1, "admin", "presenter", "user").ToList();
+            ViewBag.OturumaKatilanlar = data.Reports_UserList(id).ToList();
 
-            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            var nesne1 = data.Reports_RoomStats(id).FirstOrDefault();
             MyModel mm = new MyModel();
             mm.rm = room;
-            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+            mm.stat = nesne1 ?? new Reports_RoomStats_Result();
 
             return View(mm);
         }
@@ -88,10 +88,10 @@ namespace PerculusReport.Controllers
             ViewBag.Users = users.ToList();
 
             PerculusData data = new PerculusData();
-            var nesne1 = data.PERCULUSSA_USP_REPORTS_ROOMSTATS(id, 1, "admin", "presenter", "user").FirstOrDefault();
+            var nesne1 = data.Reports_RoomStats(id).FirstOrDefault();
             MyModel mm = new MyModel();
             mm.rm = room;
-            mm.stat = nesne1 ?? new PERCULUSSA_USP_REPORTS_ROOMSTATS_Result();
+            mm.stat = nesne1 ?? new Reports_RoomStats_Result();
 
 
             return View(mm);
