@@ -11,13 +11,12 @@ namespace PerculusReport.Models
 {
     using System;
     
-    public partial class ActivityStats_Result
+    public partial class CourseStats_Result
     {
+        public Nullable<System.Guid> COURSEID { get; set; }
+        public string COURSENAME { get; set; }
         public Nullable<decimal> TDuration { get; set; }
         public Nullable<int> Duration { get; set; }
-        public Nullable<int> Week { get; set; }
         public Nullable<decimal> Progress { get; set; }
-        public string COURSENAME { get; set; }
-        public string SumActId { get; set; }
     }
 }

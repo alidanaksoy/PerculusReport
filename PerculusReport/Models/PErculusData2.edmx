@@ -19,6 +19,9 @@
         <Function Name="ActivityStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="COURSEID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="CourseStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROGRAMID" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <EntityContainer Name="SAUPORT_PerculusModelStoreContainer">
           <EntitySet Name="VClass" EntityType="Self.VClass" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -42,15 +45,23 @@
           <FunctionImport Name="ActivityStats" ReturnType="Collection(SAUPORT_PerculusModel.ActivityStats_Result)">
           <Parameter Name="COURSEID" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="CourseStats" ReturnType="Collection(SAUPORT_PerculusModel.CourseStats_Result)">
+          <Parameter Name="PROGRAMID" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ActivityStats_Result">
-          <Property Type="Guid" Name="VClassId" Nullable="false" />
-          <Property Type="String" Name="VClassKey" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Provider" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="TDuration" Nullable="true" Precision="38" Scale="0" />
-          <Property Type="Int32" Name="Duration" Nullable="false" />
+          <Property Type="Int32" Name="Duration" Nullable="true" />
           <Property Type="Int32" Name="Week" Nullable="true" />
-          <Property Type="String" Name="ACTIVITYNAME" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="Progress" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="SumActId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CourseStats_Result">
+          <Property Type="Guid" Name="COURSEID" Nullable="true" />
+          <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="TDuration" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="Int32" Name="Duration" Nullable="true" />
           <Property Type="Decimal" Name="Progress" Nullable="true" Precision="38" Scale="0" />
         </ComplexType>
       </Schema>
@@ -74,13 +85,22 @@
           <FunctionImportMapping FunctionImportName="ActivityStats" FunctionName="SAUPORT_PerculusModel.Store.ActivityStats">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.ActivityStats_Result">
-                <ScalarProperty Name="VClassId" ColumnName="VClassId" />
-                <ScalarProperty Name="VClassKey" ColumnName="VClassKey" />
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
                 <ScalarProperty Name="TDuration" ColumnName="TDuration" />
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Week" ColumnName="Week" />
-                <ScalarProperty Name="ACTIVITYNAME" ColumnName="ACTIVITYNAME" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
+                <ScalarProperty Name="SumActId" ColumnName="SumActId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CourseStats" FunctionName="SAUPORT_PerculusModel.Store.CourseStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.CourseStats_Result">
+                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+                <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
+                <ScalarProperty Name="TDuration" ColumnName="TDuration" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Progress" ColumnName="Progress" />
               </ComplexTypeMapping>
             </ResultMapping>
