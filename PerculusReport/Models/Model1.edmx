@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SAUPORT_PerculusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="VClass">
+          <Key>
+            <PropertyRef Name="VClassId" />
+          </Key>
+          <Property Name="VClassId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="VClassKey" Type="int" Nullable="false" />
+          <Property Name="Provider" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TDuration" Type="int" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="ActivityStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="COURSEID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <EntityContainer Name="SAUPORT_PerculusModelStoreContainer">
+          <EntitySet Name="VClass" EntityType="Self.VClass" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SAUPORT_PerculusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="VClass">
+          <Key>
+            <PropertyRef Name="VClassId" />
+          </Key>
+          <Property Name="VClassId" Type="Guid" Nullable="false" />
+          <Property Name="VClassKey" Type="Int32" Nullable="false" />
+          <Property Name="Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TDuration" Type="Int32" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Week" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PerculusData2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VClass" EntityType="Self.VClass" />
+          <FunctionImport Name="ActivityStats" ReturnType="Collection(SAUPORT_PerculusModel.ActivityStats_Result)">
+          <Parameter Name="COURSEID" Mode="In" Type="Guid" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ActivityStats_Result">
+          <Property Type="Guid" Name="VClassId" Nullable="false" />
+          <Property Type="String" Name="VClassKey" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Provider" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="TDuration" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="Int32" Name="Duration" Nullable="false" />
+          <Property Type="Int32" Name="Week" Nullable="true" />
+          <Property Type="String" Name="ACTIVITYNAME" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="Progress" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SAUPORT_PerculusModelStoreContainer" CdmEntityContainer="PerculusData2">
+          <EntitySetMapping Name="VClass">
+            <EntityTypeMapping TypeName="SAUPORT_PerculusModel.VClass">
+              <MappingFragment StoreEntitySet="VClass">
+                <ScalarProperty Name="VClassId" ColumnName="VClassId" />
+                <ScalarProperty Name="VClassKey" ColumnName="VClassKey" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="TDuration" ColumnName="TDuration" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ActivityStats" FunctionName="SAUPORT_PerculusModel.Store.ActivityStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.ActivityStats_Result">
+                <ScalarProperty Name="VClassId" ColumnName="VClassId" />
+                <ScalarProperty Name="VClassKey" ColumnName="VClassKey" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+                <ScalarProperty Name="TDuration" ColumnName="TDuration" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="ACTIVITYNAME" ColumnName="ACTIVITYNAME" />
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

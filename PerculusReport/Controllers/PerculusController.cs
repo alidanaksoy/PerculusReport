@@ -97,6 +97,21 @@ namespace PerculusReport.Controllers
             return View(mm);
         }
 
+        public ActionResult ProgramStats()
+        {
+            return View();
+        }
+        public ActionResult CourseStats(Guid? pid)
+        {
+            return View();
+        }
+        public ActionResult ActivityStats(Guid? cid)
+        {
+            PerculusData2 db = new PerculusData2();
+            ViewBag.Activities = db.ActivityStats(cid).ToList();
+            return View();
+        }
+
         public ActionResult RoomFind(int id, string provider)
         {
             if (provider == "Perculus3" || provider == "Perculus4")

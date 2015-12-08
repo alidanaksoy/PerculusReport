@@ -19,6 +19,5 @@ namespace PerculusReport.Models
         public string UserType { get; set; }
         public string AttendCode { get; set; }
         public Nullable<int> IsBanned { get; set; }
-        public string UType { get; set; }
     }
 }

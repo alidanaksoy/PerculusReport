@@ -6,9 +6,9 @@
 @Html.Partial("RoomSummary", Model)
 <div id="content">
     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-        <li><a href="@Url.Action("RoomParticipants", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu (1)</a></li>
-        <li class="active"><a href="@Url.Action("RoomParticipantsLive", new { id = Model.rm.ROOMID })">Katılım Raporu (9) (Detaylı)</a></li>
-        <li><a href="@Url.Action("OturumaKatilanlar", "Perculus", new { id = Model.rm.ROOMID })">Oturuma Katılanlar (5) (Tümü)</a></li>
+        <li><a href="@Url.Action("RoomParticipants", "Perculus", new { id = Model.rm.ROOMID })">Katılım Raporu</a></li>
+        <li class="active"><a href="@Url.Action("RoomParticipantsLive", new { id = Model.rm.ROOMID })">Katılım Raporu (Detaylı)</a></li>
+        <li><a href="@Url.Action("OturumaKatilanlar", "Perculus", new { id = Model.rm.ROOMID })">Oturuma Katılanlar (Tümü)</a></li>
         <li><a href="@Url.Action("Room", "Perculus", new { id = Model.rm.ROOMID })">Oturum Genel Bilgi</a></li>
     </ul>
 
