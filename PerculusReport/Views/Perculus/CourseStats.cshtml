@@ -1,0 +1,34 @@
+﻿@using PerculusReport.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CourseStats</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container" style="font-size:16px; text-align:left; line-height:45px;">
+        <h3>Finans ve İktisat Programı</h3><br />
+        @*<p>The contextual classes colors the progress bars:</p>*@
+        <div class="row">
+            @foreach (var p in ((List<CourseStats_Result>)ViewBag.Courses))
+            {                          
+                    <div class="col-lg-3">@Html.ActionLink(p.COURSENAME, "ActivityStats/" + p.COURSEID, "Perculus")</div>
+                    <div class="progress" style="height:40px;">
+                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px;">
+                            @p.Progress %&nbsp;
+                        </div>
+                    </div>
+            }
+        </div>
+       
+    </div>
+</body>
+</html>

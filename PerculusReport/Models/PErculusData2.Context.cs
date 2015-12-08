@@ -37,5 +37,14 @@ namespace PerculusReport.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ActivityStats_Result>("ActivityStats", cOURSEIDParameter);
         }
+    
+        public virtual ObjectResult<CourseStats_Result> CourseStats(Nullable<System.Guid> pROGRAMID)
+        {
+            var pROGRAMIDParameter = pROGRAMID.HasValue ?
+                new ObjectParameter("PROGRAMID", pROGRAMID) :
+                new ObjectParameter("PROGRAMID", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseStats_Result>("CourseStats", pROGRAMIDParameter);
+        }
     }
 }

@@ -101,14 +101,20 @@ namespace PerculusReport.Controllers
         {
             return View();
         }
-        public ActionResult CourseStats(Guid? pid)
+        public ActionResult CourseStats(string id)
         {
+            var pid = Guid.Parse(id);
+            PerculusData2 db = new PerculusData2();
+            ViewBag.Courses = db.CourseStats(pid).ToList();
+            //ViewBag.ProgramName = db.CourseStats(pid).FirstOrDefault().PROGRAMNAME;
             return View();
         }
-        public ActionResult ActivityStats(Guid? cid)
+        public ActionResult ActivityStats(string id) //courseid
         {
+            var cid = Guid.Parse(id);
             PerculusData2 db = new PerculusData2();
-            ViewBag.Activities = db.ActivityStats(cid).ToList();
+            ViewBag.Activities = db.ActivityStats(cid).OrderBy(O => O.Week).ToList();
+            ViewBag.CourseName = db.ActivityStats(cid).FirstOrDefault().COURSENAME;
             return View();
         }
 
