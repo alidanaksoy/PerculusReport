@@ -96,5 +96,14 @@ namespace PerculusReport.Controllers
 
             return View(mm);
         }
+
+        public ActionResult RoomFind(int id, string provider)
+        {
+            if (provider == "Perculus3" || provider == "Perculus4")
+            {
+                return new RedirectResult("http://185.7.3.236/Perculus/Room/" + id.ToString());
+            }
+            return RedirectToAction("Room", new { id = id });
+        }
     }
 }

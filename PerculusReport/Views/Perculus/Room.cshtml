@@ -2,7 +2,7 @@
 @using PerculusReport.Models.Perculus
 @model MyModel
 @{
-    ViewBag.Title = "Room";
+    ViewBag.Title = Model.rm.SESSIONNAME;
 }
 @Html.Partial("RoomSummary", Model)
 <div id="content">
