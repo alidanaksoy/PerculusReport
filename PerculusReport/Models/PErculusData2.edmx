@@ -23,6 +23,10 @@
         <Function Name="CourseStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PROGRAMID" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="CourseStats_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PROGRAMID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ProgramStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SAUPORT_PerculusModelStoreContainer">
           <EntitySet Name="VClass" EntityType="Self.VClass" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -50,6 +54,10 @@
           <FunctionImport Name="CourseStats" ReturnType="Collection(SAUPORT_PerculusModel.CourseStats_Result)">
           <Parameter Name="PROGRAMID" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="ProgramStats" ReturnType="Collection(SAUPORT_PerculusModel.ProgramStats_Result)" />
+          <FunctionImport Name="CourseStats_2" ReturnType="Collection(SAUPORT_PerculusModel.CourseStats_2_Result)">
+          <Parameter Name="PROGRAMID" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ActivityStats_Result">
           <Property Type="Int32" Name="Duration" Nullable="false" />
@@ -70,6 +78,21 @@
           <Property Type="String" Name="PROGRAMNAME" Nullable="true" MaxLength="200" />
           <Property Type="Int32" Name="CREDIT" Nullable="true" />
           <Property Type="Int32" Name="ACount" Nullable="true" />
+          </ComplexType>
+        <ComplexType Name="ProgramStats_Result">
+          <Property Type="Guid" Name="PROGRAMID" Nullable="false" />
+          <Property Type="String" Name="PROGRAMNAME" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="COURSECOUNT" Nullable="true" />
+          <Property Type="Int32" Name="PROGRESSTOTAL" Nullable="true" />
+          <Property Type="Int32" Name="PROGRESS" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CourseStats_2_Result">
+          <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="PROGRAMNAME" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="COURSEID" Nullable="true" />
+          <Property Type="Int32" Name="ACount" Nullable="true" />
+          <Property Type="Int32" Name="CREDIT" Nullable="true" />
+          <Property Type="Int32" Name="progress" Nullable="false" />
           </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -115,6 +138,29 @@
                 <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
                 <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
                 <ScalarProperty Name="ACount" ColumnName="ACount" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProgramStats" FunctionName="SAUPORT_PerculusModel.Store.ProgramStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.ProgramStats_Result">
+                <ScalarProperty Name="PROGRAMID" ColumnName="PROGRAMID" />
+                <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
+                <ScalarProperty Name="COURSECOUNT" ColumnName="COURSECOUNT" />
+                <ScalarProperty Name="PROGRESSTOTAL" ColumnName="PROGRESSTOTAL" />
+                <ScalarProperty Name="PROGRESS" ColumnName="PROGRESS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CourseStats_2" FunctionName="SAUPORT_PerculusModel.Store.CourseStats_2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.CourseStats_2_Result">
+                <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
+                <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
+                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+                <ScalarProperty Name="ACount" ColumnName="ACount" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

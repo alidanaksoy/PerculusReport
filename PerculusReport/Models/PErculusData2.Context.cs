@@ -61,6 +61,25 @@ public partial class PerculusData2 : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseStats_Result>("CourseStats", pROGRAMIDParameter);
     }
 
+
+    public virtual ObjectResult<ProgramStats_Result> ProgramStats()
+    {
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramStats_Result>("ProgramStats");
+    }
+
+
+    public virtual ObjectResult<CourseStats_2_Result> CourseStats_2(Nullable<System.Guid> pROGRAMID)
+    {
+
+        var pROGRAMIDParameter = pROGRAMID.HasValue ?
+            new ObjectParameter("PROGRAMID", pROGRAMID) :
+            new ObjectParameter("PROGRAMID", typeof(System.Guid));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseStats_2_Result>("CourseStats_2", pROGRAMIDParameter);
+    }
+
 }
 
 }

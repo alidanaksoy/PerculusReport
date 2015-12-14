@@ -99,13 +99,15 @@ namespace PerculusReport.Controllers
 
         public ActionResult ProgramStats()
         {
+            PerculusData2 db = new PerculusData2();
+            ViewBag.Programs = db.ProgramStats().OrderBy(p => p.PROGRAMNAME).ToList();
             return View();
         }
         public ActionResult CourseStats(string id)
         {
             var pid = Guid.Parse(id);
             PerculusData2 db = new PerculusData2();
-            ViewBag.Courses = db.CourseStats(pid).ToList();
+            ViewBag.Courses = db.CourseStats(pid).OrderBy(c => c.COURSENAME).ToList();
             ViewBag.ProgramName = db.CourseStats(pid).FirstOrDefault().PROGRAMNAME;
             return View();
         }
@@ -118,6 +120,15 @@ namespace PerculusReport.Controllers
             ViewBag.CourseName = ActivityInfo.COURSENAME;
             ViewBag.ProgramName = ActivityInfo.PROGRAMNAME;
             //ViewBag.CourseName = db.ActivityStats(cid).FirstOrDefault().COURSENAME;
+            return View();
+        }
+
+        public ActionResult CourseStats2(string id)
+        {
+            var pid = Guid.Parse(id);
+            PerculusData2 db = new PerculusData2();
+            ViewBag.Courses = db.CourseStats_2(pid).ToList();
+            ViewBag.ProgramName = db.CourseStats(pid).FirstOrDefault().PROGRAMNAME;
             return View();
         }
 

@@ -138,6 +138,9 @@
     <Compile Include="Models\ActivityStats_Result.cs">
       <DependentUpon>PErculusData2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CourseStats_2_Result.cs">
+      <DependentUpon>PErculusData2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseStats_Result.cs">
       <DependentUpon>PErculusData2.tt</DependentUpon>
     </Compile>
@@ -181,6 +184,9 @@
     <Compile Include="Models\Perculus\Room.cs" />
     <Compile Include="Models\Perculus\RoomUser.cs" />
     <Compile Include="Models\Perculus\UserLog.cs" />
+    <Compile Include="Models\ProgramStats_Result.cs">
+      <DependentUpon>PErculusData2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Reports_RoomParticipants_Result.cs">
       <DependentUpon>PerculusData.tt</DependentUpon>
     </Compile>
@@ -240,6 +246,7 @@
     <Content Include="Models\PErculusData2.edmx.diagram">
       <DependentUpon>PErculusData2.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Perculus2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -276,6 +283,7 @@
     <Content Include="Views\Perculus\ActivityStats.cshtml" />
     <Content Include="Views\Perculus\CourseStats.cshtml" />
     <Content Include="Views\Perculus\ProgramStats.cshtml" />
+    <Content Include="Views\Perculus\CourseStats2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

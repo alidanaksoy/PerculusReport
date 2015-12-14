@@ -49,7 +49,7 @@
                     @if (@p.Progress < 100 && @p.Progress > 0)
                     {
                         <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
-                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px;">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; min-width: 4%; font-size:14px; text-align:right; line-height:45px;">
                                 @p.Progress %&nbsp;
                             </div>
                         </div>
