@@ -8,85 +8,114 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Ders Aktivite</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title>Aktivite İstatistik</title>
 </head>
 <body>
-    <div class="container" style="font-size:16px; text-align:left; line-height:45px;">
-        <h3>@ViewBag.CourseName (Ders)</h3><br />
-        @*<p>The contextual classes colors the progress bars:</p>*@
-        <div class="row">
-            @foreach (var p in ((List<ActivityStats_Result>)ViewBag.Activities))
+    <div class="container body-content">
+
+        <div class="widget-box">
+            <div class="widget-header"><h4><i class="fa fa-users blue"></i> 
+                <span>
+                    @ViewBag.ProgramName 
+                    <i class="ace-icon fa fa-angle-double-right"></i> 
+                    @ViewBag.CourseName
+                </span></h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row-fluid">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Aktivite</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+    @foreach (var p in ((List<ActivityStats_Result>)ViewBag.Activities))
             {
-                if (@p.Progress == 0)
-                {
-                    @*<div class="col-lg-3">@p.ACTIVITYNAME</div>*@
-                    <div class="col-lg-3">@p.Week . Hafta</div>
-                    <div class="progress" style="height:40px;">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px; color:#333;">
-                            @p.Progress %
-                        </div>
+            <tr>
+                <td style="width:20%; vertical-align:middle">
+                    @p.WEEKID . Hafta 
+                    <div class="hidden-phone visible-desktop action-buttons HTBar" style="float: right;">
+                        
+                    @if (@p.ACount > 1)
+                    {
+                        <span class="badge badge-info">@p.ACount</span>
+                    }
+                        <span class="badge badge-success">@p.Provider</span>
                     </div>
-                }
-                else if (@p.Progress == 100)
-                {
-                    @*<div class="col-lg-3">@p.ACTIVITYNAME</div>*@
-                    <div class="col-lg-3">@p.Week . Hafta</div>
-                    <div class="progress" style="height:40px; ">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
-                            @p.Progress %&nbsp;
-
+</td>
+                <td style="width:80%; vertical-align:central">
+                    @if (@p.Progress < 100 && @p.Progress > 0)
+                    {
+                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px;">
+                                @p.Progress %&nbsp;
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else if (@p.Progress > 100)
+                    {
+                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
+                                <span class="label label-info label-white middle">@p.Progress %&nbsp;</span>
+                               
 
-                }
-                else if (@p.Progress >= 100)
-                {
-                    @*<div class="col-lg-3">@p.ACTIVITYNAME</div>*@
-                    <div class="col-lg-3">@p.Week . Hafta</div>
-                    <div class="progress" style="height:40px; ">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
-                            <span class="label-info">@p.Progress %&nbsp;</span>
-                            
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else if (@p.Progress == 100)
+                    {
+                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
+                                @p.Progress %&nbsp;
 
-                }
-                else
-                {
-                    @*<div class="col-lg-3">@p.ACTIVITYNAME</div>*@
-                    <div class="col-lg-3">@p.Week . Hafta</div>
-                    <div class="progress" style="height:40px; ">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px;">
-                            @p.Progress %&nbsp;                            
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                    else if (@p.Progress == 0)
+                    {
+                        if (p.Duration == 0)
+                        {
+                            <div class="progress" style="margin-bottom:0; height:40px;">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                                    
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="center" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#fe3e3e; font-size:14px; text-align:center; line-height:45px;">
+                                @p.Progress %&nbsp;
 
+                            </div>
+                        </div>
+                        }
+                    }
+                    
+
+                </td>
+               
+            </tr>
             }
+                     
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+                                
+                    </div>
+                </div>
+                </div>
         </div>
-        @*<div class="progress">
-            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                40% Complete (success)
-            </div>
-        </div>
-        <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                50% Complete (info)
-            </div>
-        </div>
-        <div class="progress">
-            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                60% Complete (warning)
-            </div>
-        </div>
-        <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                70% Complete (danger)
-            </div>
-        </div>*@
     </div>
 </body>
+
 </html>

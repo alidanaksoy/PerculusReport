@@ -8,27 +8,102 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>CourseStats</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title>Ders İstatistik</title>
 </head>
 <body>
-    <div class="container" style="font-size:16px; text-align:left; line-height:45px;">
-        <h3>Finans ve İktisat Programı</h3><br />
-        @*<p>The contextual classes colors the progress bars:</p>*@
-        <div class="row">
-            @foreach (var p in ((List<CourseStats_Result>)ViewBag.Courses))
-            {                          
-                    <div class="col-lg-3">@Html.ActionLink(p.COURSENAME, "ActivityStats/" + p.COURSEID, "Perculus")</div>
-                    <div class="progress" style="height:40px;">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; font-size:14px; text-align:right; line-height:45px;">
-                            @p.Progress %&nbsp;
-                        </div>
+    <div class="container">
+        <div class="widget-box">
+            <div class="widget-header"><h4><i class="fa fa-users blue"></i> <span>@ViewBag.ProgramName</span></h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row-fluid">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Ders</th>
+                                    <th>Durum</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var p in ((List<CourseStats_Result>)ViewBag.Courses))
+                                {                                  
+                                    <tr>
+                                        <td style="width:30%; vertical-align:middle;" class="HTool">
+                                            @*@if (@p.progress != 0)
+	                                        {
+		                                          @Html.ActionLink(p.COURSENAME, "ActivityStats/" + p.COURSEID, "Perculus")
+                                                <div class="hidden-phone visible-desktop action-buttons HTBar">
+                                                    <span class="label label-white middle">@p.CREDIT Kredi</span>
+                                                    <span class="label label-info label-white middle">@p.ACount Aktivite</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @p.COURSENAME*@
+                                                @Html.ActionLink(p.COURSENAME, "ActivityStats/" + p.COURSEID, "Perculus")
+                                            <div class="hidden-phone visible-desktop action-buttons HTBar" style="float: right;">
+                                                @if (@p.ACount > 0)
+                                                {
+                                                    <span class="badge badge-success">@p.ACount Hafta</span>
+                                                }
+                                                <span class="badge">@p.CREDIT Kredi</span>
+                                                 
+                                                </div>
+                                                @*}*@
+
+</td>
+                                        <td style="width:70%;">
+                                            @if (@p.progress < 100 && @p.progress > 0)
+                                            {
+                                            <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration / @p.TotalDuration Dakika">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress%; font-size:14px; text-align:right; line-height:45px;">
+                                                    @p.progress %&nbsp;
+                                                </div>
+                                            </div>
+                                            }
+                                            else if (@p.progress > 100)
+                                            {
+                                                <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration / @p.TotalDuration Dakika">
+                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress%; font-size:14px; text-align:right; line-height:45px;">
+                                                        @p.progress %&nbsp;
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (@p.progress == 100)
+                                            {
+                                                <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration / @p.TotalDuration Dakika">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress%; font-size:14px; text-align:right; line-height:45px;">
+                                                        @p.progress %&nbsp;
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (@p.progress == 0)
+                                            {
+                                                <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration / @p.TotalDuration Dakika">
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#fe3e3e; font-size:14px; text-align:center; line-height:45px;">
+                                                        @p.progress %&nbsp;
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                            }
+                            </tbody>
+                        </table>
                     </div>
-            }
+                </div>
+            </div>
         </div>
-       
-    </div>
+
+
+
+
+
+
+
+                                
+
+                    </div>
 </body>
 </html>

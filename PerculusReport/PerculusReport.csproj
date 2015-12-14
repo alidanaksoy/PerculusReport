@@ -275,6 +275,7 @@
     <Content Include="Views\Perculus\RoomSummary.cshtml" />
     <Content Include="Views\Perculus\ActivityStats.cshtml" />
     <Content Include="Views\Perculus\CourseStats.cshtml" />
+    <Content Include="Views\Perculus\ProgramStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
