@@ -27,7 +27,7 @@ public partial class CourseStats_2_Result
 
     public Nullable<int> CREDIT { get; set; }
 
-    public int progress { get; set; }
+    public Nullable<decimal> progress { get; set; }
 
 }
 

@@ -96,11 +96,13 @@ namespace PerculusReport.Controllers
 
             return View(mm);
         }
-
         public ActionResult ProgramStats()
         {
             PerculusData2 db = new PerculusData2();
             ViewBag.Programs = db.ProgramStats().OrderBy(p => p.PROGRAMNAME).ToList();
+
+            var comments = db.Comments.Where(c => c.Category == 3).OrderBy(o => o.Number).ToList();
+            ViewBag.comments = comments;
             return View();
         }
         public ActionResult CourseStats(string id)
@@ -111,27 +113,34 @@ namespace PerculusReport.Controllers
             ViewBag.ProgramName = db.CourseStats(pid).FirstOrDefault().PROGRAMNAME;
             return View();
         }
-        public ActionResult ActivityStats(string id)
+        public ActionResult ActivityStats(string cid, string gid)
         {
-            var cid = Guid.Parse(id);
+            var courseid = Guid.Parse(cid);
+            var groupid = Guid.Parse(gid);
             PerculusData2 db = new PerculusData2();
-            ViewBag.Activities = db.ActivityStats(cid).OrderBy(O => O.WEEKID).ToList();
-            var ActivityInfo = db.ActivityStats(cid).FirstOrDefault();
+            ViewBag.Activities = db.ActivityStats(courseid, groupid).OrderBy(O => O.WEEKID).ThenBy(g => g.GroupName).ToList();
+            var ActivityInfo = db.ActivityStats(courseid, groupid).FirstOrDefault();
             ViewBag.CourseName = ActivityInfo.COURSENAME;
             ViewBag.ProgramName = ActivityInfo.PROGRAMNAME;
-            //ViewBag.CourseName = db.ActivityStats(cid).FirstOrDefault().COURSENAME;
+            ViewBag.ProgramId = ActivityInfo.PROGRAMID;
+            ViewBag.GCount = ActivityInfo.GCount;
+            ViewBag.GName = ActivityInfo.GroupName;
+
+            var comments = db.Comments.Where(c => c.Category == 1).OrderBy(o => o.Number).ToList();
+            ViewBag.comments = comments;
             return View();
         }
-
         public ActionResult CourseStats2(string id)
         {
             var pid = Guid.Parse(id);
             PerculusData2 db = new PerculusData2();
-            ViewBag.Courses = db.CourseStats_2(pid).ToList();
+            ViewBag.Courses = db.CourseStats(pid).OrderBy(c => c.COURSENAME).ThenBy(r => r.GroupName).ToList();
             ViewBag.ProgramName = db.CourseStats(pid).FirstOrDefault().PROGRAMNAME;
+
+            var comments = db.Comments.Where(c => c.Category == 2).OrderBy(o => o.Number).ToList();
+            ViewBag.comments = comments;
             return View();
         }
-
         public ActionResult RoomFind(int id, string provider)
         {
             if (provider == "Perculus3" || provider == "Perculus4")
@@ -139,6 +148,11 @@ namespace PerculusReport.Controllers
                 return new RedirectResult("http://185.7.3.236/Perculus/Room/" + id.ToString());
             }
             return RedirectToAction("Room", new { id = id });
+        }
+
+        public ActionResult ActivityStatsByGroup(string cid, string gid)
+        {
+            return View();
         }
     }
 }

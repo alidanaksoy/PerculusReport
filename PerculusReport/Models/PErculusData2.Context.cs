@@ -37,8 +37,10 @@ public partial class PerculusData2 : DbContext
 
     public virtual DbSet<VClass> VClass { get; set; }
 
+    public virtual DbSet<Comments> Comments { get; set; }
 
-    public virtual ObjectResult<ActivityStats_Result> ActivityStats(Nullable<System.Guid> cOURSEID)
+
+    public virtual ObjectResult<ActivityStats_Result> ActivityStats(Nullable<System.Guid> cOURSEID, Nullable<System.Guid> gROUPID)
     {
 
         var cOURSEIDParameter = cOURSEID.HasValue ?
@@ -46,7 +48,12 @@ public partial class PerculusData2 : DbContext
             new ObjectParameter("COURSEID", typeof(System.Guid));
 
 
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ActivityStats_Result>("ActivityStats", cOURSEIDParameter);
+        var gROUPIDParameter = gROUPID.HasValue ?
+            new ObjectParameter("GROUPID", gROUPID) :
+            new ObjectParameter("GROUPID", typeof(System.Guid));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ActivityStats_Result>("ActivityStats", cOURSEIDParameter, gROUPIDParameter);
     }
 
 
@@ -62,13 +69,6 @@ public partial class PerculusData2 : DbContext
     }
 
 
-    public virtual ObjectResult<ProgramStats_Result> ProgramStats()
-    {
-
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramStats_Result>("ProgramStats");
-    }
-
-
     public virtual ObjectResult<CourseStats_2_Result> CourseStats_2(Nullable<System.Guid> pROGRAMID)
     {
 
@@ -78,6 +78,13 @@ public partial class PerculusData2 : DbContext
 
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseStats_2_Result>("CourseStats_2", pROGRAMIDParameter);
+    }
+
+
+    public virtual ObjectResult<ProgramStats_Result> ProgramStats()
+    {
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramStats_Result>("ProgramStats");
     }
 
 }

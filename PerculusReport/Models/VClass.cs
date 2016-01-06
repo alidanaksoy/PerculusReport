@@ -32,6 +32,10 @@ public partial class VClass
 
     public Nullable<System.Guid> CourseId { get; set; }
 
+    public Nullable<System.Guid> GroupId { get; set; }
+
+    public string GroupName { get; set; }
+
 }
 
 }

@@ -13,19 +13,18 @@ namespace PerculusReport.Models
 {
 
 using System;
+    using System.Collections.Generic;
     
-public partial class ProgramStats_Result
+public partial class Comments
 {
 
-    public System.Guid PROGRAMID { get; set; }
+    public int Id { get; set; }
 
-    public string PROGRAMNAME { get; set; }
+    public Nullable<int> Category { get; set; }
 
-    public Nullable<int> COURSECOUNT { get; set; }
+    public Nullable<int> Number { get; set; }
 
-    public Nullable<decimal> PROGRESSTOTAL { get; set; }
-
-    public Nullable<decimal> PROGRESS { get; set; }
+    public string Comment { get; set; }
 
 }
 

@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ca4e6bf524fb445b865864df47f32cb5" Name="Diagram1">
         <EntityTypeShape EntityType="SAUPORT_PerculusModel.VClass" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAUPORT_PerculusModel.Comments" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

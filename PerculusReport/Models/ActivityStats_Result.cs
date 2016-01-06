@@ -17,21 +17,29 @@ using System;
 public partial class ActivityStats_Result
 {
 
-    public int Duration { get; set; }
+    public double Duration { get; set; }
 
-    public int Progress { get; set; }
+    public Nullable<decimal> Progress { get; set; }
 
-    public int TeacherDuration { get; set; }
-
-    public string Provider { get; set; }
+    public double TeacherDuration { get; set; }
 
     public string COURSENAME { get; set; }
 
     public int WEEKID { get; set; }
 
-    public Nullable<int> ACount { get; set; }
-
     public string PROGRAMNAME { get; set; }
+
+    public Nullable<System.Guid> GroupId { get; set; }
+
+    public string GroupName { get; set; }
+
+    public Nullable<System.Guid> COURSEID { get; set; }
+
+    public Nullable<int> ACounT { get; set; }
+
+    public Nullable<System.Guid> PROGRAMID { get; set; }
+
+    public Nullable<int> GCount { get; set; }
 
 }
 

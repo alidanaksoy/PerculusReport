@@ -5,30 +5,59 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SAUPORT_PerculusModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="int" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VClass">
           <Key>
             <PropertyRef Name="VClassId" />
+            
+            
+            
+            
+            
           </Key>
           <Property Name="VClassId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CourseId" Type="uniqueidentifier" />
           <Property Name="VClassKey" Type="int" Nullable="false" />
           <Property Name="Provider" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="TDuration" Type="int" Nullable="false" />
-          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="TDuration" Type="float" Nullable="false" />
+          <Property Name="Duration" Type="float" Nullable="false" />
           <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="GroupId" Type="uniqueidentifier" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Function Name="ActivityStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="COURSEID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="GROUPID" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="CourseStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PROGRAMID" Type="uniqueidentifier" Mode="In" />
         </Function>
-        <Function Name="CourseStats_2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PROGRAMID" Type="uniqueidentifier" Mode="In" />
-        </Function>
         <Function Name="ProgramStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SAUPORT_PerculusModelStoreContainer">
-          <EntitySet Name="VClass" EntityType="Self.VClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VClass" EntityType="Self.VClass" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VClass].[VClassId] AS [VClassId], 
+    [VClass].[CourseId] AS [CourseId], 
+    [VClass].[VClassKey] AS [VClassKey], 
+    [VClass].[Provider] AS [Provider], 
+    [VClass].[TDuration] AS [TDuration], 
+    [VClass].[Duration] AS [Duration], 
+    [VClass].[Week] AS [Week], 
+    [VClass].[GroupId] AS [GroupId], 
+    [VClass].[GroupName] AS [GroupName]
+    FROM [dbo].[VClass] AS [VClass]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -45,55 +74,73 @@
           <Property Name="Duration" Type="Int32" Nullable="false" />
           <Property Name="Week" Type="Int32" Nullable="false" />
           <Property Name="CourseId" Type="Guid" />
+          <Property Name="GroupId" Type="Guid" />
+          <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PerculusData2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="VClass" EntityType="Self.VClass" />
           <FunctionImport Name="ActivityStats" ReturnType="Collection(SAUPORT_PerculusModel.ActivityStats_Result)">
-          <Parameter Name="COURSEID" Mode="In" Type="Guid" />
+            <Parameter Name="COURSEID" Mode="In" Type="Guid" />
+            <Parameter Name="GROUPID" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="CourseStats" ReturnType="Collection(SAUPORT_PerculusModel.CourseStats_Result)">
           <Parameter Name="PROGRAMID" Mode="In" Type="Guid" />
           </FunctionImport>
-          <FunctionImport Name="ProgramStats" ReturnType="Collection(SAUPORT_PerculusModel.ProgramStats_Result)" />
           <FunctionImport Name="CourseStats_2" ReturnType="Collection(SAUPORT_PerculusModel.CourseStats_2_Result)">
           <Parameter Name="PROGRAMID" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="ProgramStats" ReturnType="Collection(SAUPORT_PerculusModel.ProgramStats_Result)" />
+          <EntitySet Name="Comments" EntityType="SAUPORT_PerculusModel.Comments" />
         </EntityContainer>
         <ComplexType Name="ActivityStats_Result">
-          <Property Type="Int32" Name="Duration" Nullable="false" />
-          <Property Type="Int32" Name="Progress" Nullable="false" />
-          <Property Type="Int32" Name="TeacherDuration" Nullable="false" />
-          <Property Type="String" Name="Provider" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="Duration" Nullable="false" />
+          <Property Type="Decimal" Name="Progress" Nullable="true" Precision="16" Scale="1" />
+          <Property Type="Double" Name="TeacherDuration" Nullable="false" />
           <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
           <Property Type="Int32" Name="WEEKID" Nullable="false" />
-          <Property Type="Int32" Name="ACount" Nullable="true" />
           <Property Type="String" Name="PROGRAMNAME" Nullable="true" MaxLength="200" />
+          <Property Type="Guid" Name="GroupId" Nullable="true" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="50" />
+          <Property Type="Guid" Name="COURSEID" Nullable="true" />
+          <Property Type="Int32" Name="ACounT" Nullable="true" />
+          <Property Type="Guid" Name="PROGRAMID" Nullable="true" />
+          <Property Type="Int32" Name="GCount" Nullable="true" />
           </ComplexType>
         <ComplexType Name="CourseStats_Result">
           <Property Type="Guid" Name="COURSEID" Nullable="true" />
           <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
-          <Property Type="Int32" Name="TotalDuration" Nullable="false" />
-          <Property Type="Int32" Name="TeacherDuration" Nullable="false" />
-          <Property Type="Int32" Name="progress" Nullable="false" />
           <Property Type="String" Name="PROGRAMNAME" Nullable="true" MaxLength="200" />
           <Property Type="Int32" Name="CREDIT" Nullable="true" />
           <Property Type="Int32" Name="ACount" Nullable="true" />
+          <Property Type="Guid" Name="PROGRAMID" Nullable="true" />
+          <Property Type="Guid" Name="GroupId" Nullable="true" />
+          <Property Type="String" Name="GroupName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="progress" Nullable="true" Precision="16" Scale="1" />
           </ComplexType>
-        <ComplexType Name="ProgramStats_Result">
-          <Property Type="Guid" Name="PROGRAMID" Nullable="false" />
-          <Property Type="String" Name="PROGRAMNAME" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="COURSECOUNT" Nullable="true" />
-          <Property Type="Int32" Name="PROGRESSTOTAL" Nullable="true" />
-          <Property Type="Int32" Name="PROGRESS" Nullable="true" />
-        </ComplexType>
         <ComplexType Name="CourseStats_2_Result">
           <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="PROGRAMNAME" Nullable="true" MaxLength="200" />
           <Property Type="Guid" Name="COURSEID" Nullable="true" />
           <Property Type="Int32" Name="ACount" Nullable="true" />
           <Property Type="Int32" Name="CREDIT" Nullable="true" />
-          <Property Type="Int32" Name="progress" Nullable="false" />
+          <Property Type="Decimal" Name="progress" Nullable="true" Precision="16" Scale="1" />
           </ComplexType>
+        <ComplexType Name="ProgramStats_Result">
+          <Property Type="Guid" Name="PROGRAMID" Nullable="false" />
+          <Property Type="String" Name="PROGRAMNAME" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="COURSECOUNT" Nullable="true" />
+          <Property Type="Decimal" Name="PROGRESSTOTAL" Nullable="true" Precision="38" Scale="1" />
+          <Property Type="Decimal" Name="PROGRESS" Nullable="true" Precision="16" Scale="1" />
+        </ComplexType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="Int32" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -103,6 +150,8 @@
           <EntitySetMapping Name="VClass">
             <EntityTypeMapping TypeName="SAUPORT_PerculusModel.VClass">
               <MappingFragment StoreEntitySet="VClass">
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
                 <ScalarProperty Name="VClassId" ColumnName="VClassId" />
                 <ScalarProperty Name="VClassKey" ColumnName="VClassKey" />
@@ -119,11 +168,15 @@
                 <ScalarProperty Name="Duration" ColumnName="Duration" />
                 <ScalarProperty Name="Progress" ColumnName="Progress" />
                 <ScalarProperty Name="TeacherDuration" ColumnName="TeacherDuration" />
-                <ScalarProperty Name="Provider" ColumnName="Provider" />
                 <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
                 <ScalarProperty Name="WEEKID" ColumnName="WEEKID" />
-                <ScalarProperty Name="ACount" ColumnName="ACount" />
                 <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
+                <ScalarProperty Name="ACounT" ColumnName="ACounT" />
+                <ScalarProperty Name="PROGRAMID" ColumnName="PROGRAMID" />
+                <ScalarProperty Name="GCount" ColumnName="GCount" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -132,12 +185,13 @@
               <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.CourseStats_Result">
                 <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
                 <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
-                <ScalarProperty Name="TotalDuration" ColumnName="TotalDuration" />
-                <ScalarProperty Name="TeacherDuration" ColumnName="TeacherDuration" />
-                <ScalarProperty Name="progress" ColumnName="progress" />
                 <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
                 <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
                 <ScalarProperty Name="ACount" ColumnName="ACount" />
+                <ScalarProperty Name="PROGRAMID" ColumnName="PROGRAMID" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="progress" ColumnName="progress" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -152,19 +206,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CourseStats_2" FunctionName="SAUPORT_PerculusModel.Store.CourseStats_2">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SAUPORT_PerculusModel.CourseStats_2_Result">
-                <ScalarProperty Name="COURSENAME" ColumnName="COURSENAME" />
-                <ScalarProperty Name="PROGRAMNAME" ColumnName="PROGRAMNAME" />
-                <ScalarProperty Name="COURSEID" ColumnName="COURSEID" />
-                <ScalarProperty Name="ACount" ColumnName="ACount" />
-                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
-                <ScalarProperty Name="progress" ColumnName="progress" />
-                </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="SAUPORT_PerculusModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

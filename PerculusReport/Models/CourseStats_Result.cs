@@ -21,17 +21,19 @@ public partial class CourseStats_Result
 
     public string COURSENAME { get; set; }
 
-    public int TotalDuration { get; set; }
-
-    public int TeacherDuration { get; set; }
-
-    public int progress { get; set; }
-
     public string PROGRAMNAME { get; set; }
 
     public Nullable<int> CREDIT { get; set; }
 
     public Nullable<int> ACount { get; set; }
+
+    public Nullable<System.Guid> PROGRAMID { get; set; }
+
+    public Nullable<System.Guid> GroupId { get; set; }
+
+    public string GroupName { get; set; }
+
+    public Nullable<decimal> progress { get; set; }
 
 }
 

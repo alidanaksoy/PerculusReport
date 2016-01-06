@@ -11,22 +11,34 @@
     <title>Aktivite İstatistik</title>
 </head>
 <body>
+    @*@Html.ActionLink("TEST", "testaction", "Perculus", new { cid = 1, gid = 2 }, null)*@
     <div class="container body-content">
 
         <div class="widget-box">
-            <div class="widget-header"><h4><i class="fa fa-users blue"></i> 
+            <div class="widget-header"><h5><i class="fa fa-users blue"></i> 
                 <span>
-                    @ViewBag.ProgramName 
-                    <i class="ace-icon fa fa-angle-double-right"></i> 
-                    @ViewBag.CourseName
-                </span></h4></div>
+                    @Html.ActionLink("Tüm Programlar", "ProgramStats", "Perculus", null, null)
+                    <i class="ace-icon fa fa-angle-right"></i> 
+                    @if (ViewBag.ProgramName != null)
+                    {
+                        @Html.ActionLink((string)ViewBag.ProgramName, "CourseStats2/" + (string)ViewBag.ProgramId.ToString(), "Perculus", "CourseStats2", null)
+                    }
+                
+                    <i class="ace-icon fa fa-angle-right"></i> 
+                    @ViewBag.CourseName - @ViewBag.GName
+                </span></h5></div>
             <div class="widget-body">
                 <div class="widget-main">
                     <div class="row-fluid">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Aktivite</th>
+                                    <th>Aktivite</th> 
+                                    @if (ViewBag.GCount > 1)
+                                    {
+                                        <th style="text-align:center">Sınıf</th>
+                                    } 
+                                    
                                     <th>Durum</th>
                                 </tr>
                             </thead>
@@ -35,30 +47,42 @@
             {
             <tr>
                 <td style="width:20%; vertical-align:middle">
-                    @p.WEEKID . Hafta 
+                    @p.WEEKID . Hafta   
+                   
                     <div class="hidden-phone visible-desktop action-buttons HTBar" style="float: right;">
-                        
-                    @if (@p.ACount > 1)
-                    {
-                        <span class="badge badge-info">@p.ACount</span>
-                    }
-                        <span class="badge badge-success">@p.Provider</span>
+                        @if (@p.ACounT > 1)
+                {
+                            <span class="badge badge-info">@p.ACounT</span>
+                        }
+                   
+                       
                     </div>
 </td>
-                <td style="width:80%; vertical-align:central">
+                @if (ViewBag.GCount > 1)
+                {
+                    <td style="width:10%; vertical-align:middle; text-align:center">
+                        @if (p.GroupName != null)
+                    {
+                            <span class="label label-success arrowed">@p.GroupName Sınıfı</span>
+                        }
+                    </td>
+                }
+               
+
+                <td style="width:70%; vertical-align:central">
                     @if (@p.Progress < 100 && @p.Progress > 0)
                     {
-                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
-                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress%; min-width: 4%; font-size:14px; text-align:right; line-height:45px;">
+                        <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress.ToString().Replace(",",".")%; min-width: 6%; font-size:14px; text-align:right; line-height:32px;">
                                 @p.Progress %&nbsp;
                             </div>
                         </div>
                     }
                     else if (@p.Progress > 100)
                     {
-                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
-                                <span class="label label-info label-white middle">@p.Progress %&nbsp;</span>
+                        <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
+                                <span class="label label-info label-white middle" style="margin-right:5px;">@p.Progress %&nbsp;</span>
                                
 
                             </div>
@@ -66,8 +90,8 @@
                     }
                     else if (@p.Progress == 100)
                     {
-                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:45px;">
+                        <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
                                 @p.Progress %&nbsp;
 
                             </div>
@@ -77,17 +101,17 @@
                     {
                         if (p.Duration == 0)
                         {
-                            <div class="progress" style="margin-bottom:0; height:40px;">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                    
+                            <div class="progress" style="margin-bottom:0; height:30px;">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#e9e9e9; font-size:14px; text-align:center; line-height:28px;">
+                                    <span class="label label-sm label-info"><i class="ace-icon fa fa-info align-top bigger-125"></i> Henüz Oluşturulmadı</span>
                                 </div>
                             </div>
                         }
                         else
                         {
-                        <div class="progress" style="margin-bottom:0; background-color:#fe3e3e; height:40px;" data-toggle="tooltip" data-placement="center" title="@p.TeacherDuration Dakika">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#fe3e3e; font-size:14px; text-align:center; line-height:45px;">
-                                @p.Progress %&nbsp;
+                        <div class="progress" style="margin-bottom:0; background-color:#E8E8E8; height:30px;" data-toggle="tooltip" data-placement="center" title="@p.TeacherDuration Dakika">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#FF0000; font-size:14px; text-align:center; line-height:32px;">
+                                0 %&nbsp;
 
                             </div>
                         </div>
@@ -114,6 +138,36 @@
                     </div>
                 </div>
                 </div>
+        </div>
+
+        <div class="widget-box widget-color-blue">
+            <div class="widget-header">
+                <h5>
+                    <i class="fa fa-cog white"></i>
+                    <span>
+                        Açıklamalar
+                    </span>
+                </h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row-fluid">
+                        @*<ul class="list-group">
+                            @foreach (var c in ((List<Comments>)ViewBag.comments))
+                            {
+                                <li class="list-group-item">@c.Number - @c.Comment</li>
+                            }                       
+                        </ul>*@
+                        <ul class="list-group">
+                            <li class="list-group-item">1 - İlgili haftaya ait birden fazla aktivite var ise, aktivite sayıları mavi küçük kutu içinde gösterilir.</li>
+                            <li class="list-group-item">2 - Yüzdelik ilerleme <span class="label label-success label-white middle">100x(Öğretim Görevlisinin Toplam Aktif Katılma Süresi)/Dersin Yapılması Gereken Süre</span> şeklinde hesaplanır.</li>
+                            <li class="list-group-item">3 - Dersin 1 Haftada Yapılması Gereken Süre <span class="label label-success label-white middle">Kredix20 dk.</span> şeklinde; karma eğitimlerde ise <span class="label label-success label-white middle">Kredix20 dk.x2/3</span> şeklinde hesaplanır.</li>
+                            <li class="list-group-item">4 - İlgili haftaya ait aktivite oluşturulmuş fakat işlenmemiş ise ilerleme yüzdesi kırmızı bar ve 0% olarak görünür.</li>
+                            <li class="list-group-item">5 - İlgili haftaya ait hiç aktivite oluşturulmamış ise ilerleme yüzdesi kısmında <span class="label label-sm label-info"><i class="ace-icon fa fa-info align-top bigger-125"></i> Henüz Oluşturulmadı</span> şeklinde uyarı görüntülenir.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
