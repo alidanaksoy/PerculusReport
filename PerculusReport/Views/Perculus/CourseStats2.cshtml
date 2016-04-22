@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th>Ders</th>
+                                    <th>Ö.Görevlisi</th>
                                     <th>Sınıf</th>
                                     <th>Kredi</th>
                                     <th>Hafta</th>
@@ -33,10 +34,31 @@
                                 {
                                     <tr>
                                         <td style="width:30%; vertical-align:middle;" class="HTool">
-                                           
-                                            @*@Html.ActionLink(p.COURSENAME, "ActivityStats/" + p.COURSEID, "Perculus")*@
-                                            @Html.ActionLink(p.COURSENAME, "ActivityStats", "Perculus", new { cid = p.COURSEID, gid = p.GroupId }, null)
-                                            
+                                          
+                                                   @if (p.ACount > 0)
+	                                               {
+		                                            @Html.ActionLink(p.COURSENAME, "ActivityStats", "Perculus", new { cid = p.COURSEID, gid = p.GroupId }, null)
+                                                   }
+                                                   else
+                                                   {
+                                                       @p.COURSENAME
+                                                   }
+
+
+
+
+
+
+
+                                        </td>
+                                        <td style="width:10%; vertical-align:middle;">
+                                            @if (@p.NameSurname != "-")
+                                            {
+                                                <span class="label label-white middle" style="float:left;">
+                                                    <i class="glyphicon glyphicon-user"></i>
+                                                    @p.NameSurname
+                                                </span>
+                                            }
                                         </td>
                                         <td style="vertical-align:middle;" class="HTool">
                                             <span class="badge badge-primary">
@@ -55,20 +77,20 @@
                                         {
                                             <span class="badge badge-success">@p.ACount</span>
                                         }</td>
-                                        <td style="width:70%;">
+                                        <td style="width:60%;">
                                             @if (@p.progress < 100 && @p.progress > 0)
                                             {
                                                 <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="">
-                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress.ToString().Replace(",",".")%; min-width: 4%; font-size:14px; text-align:right; line-height:32px;">
-                                                        @p.progress %&nbsp;
+                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress.ToString().Replace(",",".")%; min-width: 10%; font-size:14px; text-align:right; line-height:32px;">
+                                                        % @p.progress &nbsp;
                                                     </div>
                                                 </div>
                                             }
                                             else if (@p.progress > 100)
                                             {
                                                 <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="">
-                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
-                                                        <p style="margin-right:0px;">@p.progress %&nbsp;</p>
+                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
+                                                        <span class="label label-info label-white middle" style="margin-right:5px;">% @p.progress &nbsp;</span>
                                                     </div>
                                                 </div>
                                             }
@@ -76,7 +98,7 @@
                                             {
                                                 <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="">
                                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.progress.ToString().Replace(",",".")%; font-size:14px; text-align:right; line-height:32px;">
-                                                        @p.progress %&nbsp;
+                                                        % @p.progress &nbsp;
                                                     </div>
                                                 </div>
                                             }
@@ -84,7 +106,7 @@
                                             {
                                                 <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="">
                                                     <div class="progress-bar" role="progressbar" aria-valuenow="@p.progress" aria-valuemin="0" aria-valuemax="100" style="width:100%;  background-color:#E8E8E8; font-size:14px; text-align:center; line-height:32px;">
-                                                        @p.progress %&nbsp;
+                                                        % @p.progress&nbsp;
                                                     </div>
                                                 </div>
                                             }
@@ -109,12 +131,14 @@
                 <div class="widget-body">
                     <div class="widget-main">
                         <div class="row-fluid">
-                            <ul class="list-group">                             
-                                <li class="list-group-item">1 - Derse ait birden fazla sınıf var ise her sınıf ayrı ayrı satırlarda gösterilir.</li>
-                                <li class="list-group-item">2 - Yüzdelik ilerleme <span class="label label-success label-white middle">Derse Ait Aktivitelerin Yüzdelik İlerlemesi Toplamı / 13</span> şeklinde hesaplanır.</li>
-                                <li class="list-group-item">3 - Yüzdelik hesaplanırken 13'e bölme nedeni, sistemin 14 haftadan oluşup 1 haftanın vize haftası olarak belirlenmiş olmasıdır.</li>
-                                <li class="list-group-item">4 - Derse ait aktivitelerden herhangi birinin ilerlemesi 100% sınırını geçmişse toplam yüzdelik ilerleme bulunurken bu aktivitelerin ilerlemesi 100% olarak alınır.</li>
-                                <li class="list-group-item">5 - Proje,Staj I, Staj II ve Bitirme Çalışması dersleri listeye dahil edilmemeiştir.</li>
+                            <ul class="list-group"> 
+                                <li class="list-group-item">1 - Tıklanabilir durumda olmayan derslerin içinde ilgili derse ait hiç bir aktivite yapılmamıştır.</li>                            
+                                <li class="list-group-item">2 - Derse ait birden fazla sınıf var ise her sınıf ayrı ayrı satırlarda gösterilir.</li>
+                                <li class="list-group-item">3 - Hafta sütunu öğretim görevlisinin ilgili dersin içerisindeki haftaların kaçına  katılım yaptığı bilgisini verir. Örneğin dersin içerisinde 5 hafta oluşturulmuş ve öğretim görevlisi bu haftaların 4 tanesine katılım yapmış ise hafta sütununda 4 yazılır.  </li>
+                                <li class="list-group-item">4 - Yüzdelik ilerleme <span class="label label-success label-white middle">Derse Ait Aktivitelerin Yüzdelik İlerlemesi Toplamı / 13</span> şeklinde hesaplanır.</li>
+                                <li class="list-group-item">5 - Yüzdelik hesaplanırken 13'e bölme nedeni, sistemin 14 haftadan oluşup 1 haftanın vize haftası olarak belirlenmiş olmasıdır.</li>
+                                <li class="list-group-item">6 - Derse ait aktivitelerden herhangi birinin ilerlemesi 100% sınırını geçmişse toplam yüzdelik ilerleme bulunurken bu aktivitelerin ilerlemesi 100% olarak alınır.</li>
+                                
                             </ul>
                         </div>
                     </div>

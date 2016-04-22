@@ -36,6 +36,8 @@ public partial class VClass
 
     public string GroupName { get; set; }
 
+    public string NameSurname { get; set; }
+
 }
 
 }

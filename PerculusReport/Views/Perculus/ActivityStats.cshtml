@@ -34,10 +34,10 @@
                             <thead>
                                 <tr>
                                     <th>Aktivite</th> 
-                                    @if (ViewBag.GCount > 1)
+                                    @*@if (ViewBag.GCount > 1)
                                     {
                                         <th style="text-align:center">Sınıf</th>
-                                    } 
+                                    }*@ 
                                     
                                     <th>Durum</th>
                                 </tr>
@@ -58,7 +58,7 @@
                        
                     </div>
 </td>
-                @if (ViewBag.GCount > 1)
+                @*@if (ViewBag.GCount > 1)
                 {
                     <td style="width:10%; vertical-align:middle; text-align:center">
                         @if (p.GroupName != null)
@@ -66,7 +66,7 @@
                             <span class="label label-success arrowed">@p.GroupName Sınıfı</span>
                         }
                     </td>
-                }
+                }*@
                
 
                 <td style="width:70%; vertical-align:central">
@@ -74,7 +74,7 @@
                     {
                         <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@p.Progress" aria-valuemin="0" aria-valuemax="100" style="width:@p.Progress.ToString().Replace(",",".")%; min-width: 6%; font-size:14px; text-align:right; line-height:32px;">
-                                @p.Progress %&nbsp;
+                                % @p.Progress&nbsp;
                             </div>
                         </div>
                     }
@@ -82,7 +82,7 @@
                     {
                         <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
-                                <span class="label label-info label-white middle" style="margin-right:5px;">@p.Progress %&nbsp;</span>
+                                <span class="label label-info label-white middle" style="margin-right:5px;">% @p.Progress&nbsp;</span>
                                
 
                             </div>
@@ -92,7 +92,7 @@
                     {
                         <div class="progress" style="margin-bottom:0; height:30px;" data-toggle="tooltip" data-placement="left" title="@p.TeacherDuration Dakika">
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; font-size:14px; text-align:right; line-height:32px;">
-                                @p.Progress %&nbsp;
+                                % @p.Progress&nbsp;
 
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                         {
                         <div class="progress" style="margin-bottom:0; background-color:#E8E8E8; height:30px;" data-toggle="tooltip" data-placement="center" title="@p.TeacherDuration Dakika">
                             <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; background-color:#FF0000; font-size:14px; text-align:center; line-height:32px;">
-                                0 %&nbsp;
+                                % 0 &nbsp;
 
                             </div>
                         </div>
@@ -126,15 +126,7 @@
                      
                             </tbody>
                         </table>
-
-
-
-
-
-
-
-
-                                
+          
                     </div>
                 </div>
                 </div>

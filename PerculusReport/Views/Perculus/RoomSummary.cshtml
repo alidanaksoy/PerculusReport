@@ -4,7 +4,7 @@
     <div class="widget-header">
         <h4>
             <i class="ace-icon fa fa-users bigger-110" style="margin-right:10px;"></i>
-            <span>@Model.rm.SESSIONNAME</span>
+            <span>@Model.rm.SESSIONNAME </span>
         </h4>
     </div>
     <div class="widget-body">
@@ -70,6 +70,26 @@
                     <td></td>
                 </tr>
             </table>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <i class="fa fa-video-camera"></i> Herkese Açık İzleme Linki
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @if (Model.provider == "Perculus1")
+                            {
+                                <a href="http://www.etoplanti.sakarya.edu.tr/perculus.aspx?g=@Model.rm.ROOMGUID" target="_blank">http://www.etoplanti1.sakarya.edu.tr/perculus.aspx?g=@Model.rm.ROOMGUID</a>
+                            }
+                            else if (Model.provider == "Perculus2")
+                            {
+                                <a href="http://etoplanti2.sakarya.edu.tr/perculus.aspx?g=@Model.rm.ROOMGUID" target="_blank">http://etoplanti2.sakarya.edu.tr/perculus.aspx?g=@Model.rm.ROOMGUID</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
 </div>

@@ -13,6 +13,8 @@ namespace PerculusReport.Models
     {
         public Room rm { get; set; }
         public Reports_RoomStats_Result stat { get; set; }
+
+        public string provider { get; set; }
     }
     //F81578F8-237B-4B5E-9FAF-88D228941E45 P1
     //8A05DC36-5C48-4A3B-B639-88D0F08F02CE P2

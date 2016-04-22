@@ -34,6 +34,7 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
           <Property Name="Week" Type="int" Nullable="false" />
           <Property Name="GroupId" Type="uniqueidentifier" />
           <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NameSurname" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <Function Name="ActivityStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="COURSEID" Type="uniqueidentifier" Mode="In" />
@@ -55,7 +56,8 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
     [VClass].[Duration] AS [Duration], 
     [VClass].[Week] AS [Week], 
     [VClass].[GroupId] AS [GroupId], 
-    [VClass].[GroupName] AS [GroupName]
+    [VClass].[GroupName] AS [GroupName], 
+    [VClass].[NameSurname] AS [NameSurname]
     FROM [dbo].[VClass] AS [VClass]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -76,6 +78,7 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
           <Property Name="CourseId" Type="Guid" />
           <Property Name="GroupId" Type="Guid" />
           <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameSurname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="PerculusData2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="VClass" EntityType="Self.VClass" />
@@ -116,6 +119,7 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
           <Property Type="Guid" Name="GroupId" Nullable="true" />
           <Property Type="String" Name="GroupName" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="progress" Nullable="true" Precision="16" Scale="1" />
+          <Property Type="String" Name="NameSurname" Nullable="false" MaxLength="200" />
           </ComplexType>
         <ComplexType Name="CourseStats_2_Result">
           <Property Type="String" Name="COURSENAME" Nullable="true" MaxLength="200" />
@@ -150,6 +154,7 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
           <EntitySetMapping Name="VClass">
             <EntityTypeMapping TypeName="SAUPORT_PerculusModel.VClass">
               <MappingFragment StoreEntitySet="VClass">
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="CourseId" ColumnName="CourseId" />
@@ -192,6 +197,7 @@ warning 6002: The table/view 'SAUPORT_Perculus_NEW.dbo.VClass' does not have a p
                 <ScalarProperty Name="GroupId" ColumnName="GroupId" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="progress" ColumnName="progress" />
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
                 </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

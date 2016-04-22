@@ -61,7 +61,7 @@ namespace PerculusReport.Controllers
 
             return View(mm);
         }
-        public ActionResult Room(int id)
+        public ActionResult Room(int id, string provider)
         {
             PerculusDb db = new PerculusDb();
             var room = db.Rooms.Find(id);
@@ -91,6 +91,7 @@ namespace PerculusReport.Controllers
             var nesne1 = data.Reports_RoomStats(id).FirstOrDefault();
             MyModel mm = new MyModel();
             mm.rm = room;
+            mm.provider = provider;
             mm.stat = nesne1 ?? new Reports_RoomStats_Result();
 
 
@@ -147,9 +148,8 @@ namespace PerculusReport.Controllers
             {
                 return new RedirectResult("http://185.7.3.236/Perculus/Room/" + id.ToString());
             }
-            return RedirectToAction("Room", new { id = id });
+            return RedirectToAction("Room", new { id = id, provider = provider });
         }
-
         public ActionResult ActivityStatsByGroup(string cid, string gid)
         {
             return View();

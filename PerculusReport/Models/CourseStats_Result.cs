@@ -35,6 +35,8 @@ public partial class CourseStats_Result
 
     public Nullable<decimal> progress { get; set; }
 
+    public string NameSurname { get; set; }
+
 }
 
 }
